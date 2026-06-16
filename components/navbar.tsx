@@ -164,7 +164,7 @@ export function Navbar() {
     const defaultLink = "https://lightsalmon-hummingbird-478538.hostingersite.com/register"
     if (!pathname) return defaultLink
 
-    const matchMatch = pathname.match(/^\/match\/([^/]+)/)
+    const matchMatch = pathname.match(/(?:^\/match\/|^\/[a-zA-Z-]{2,10}\/match\/)([^/]+)/)
     if (matchMatch && gamesData?.games) {
       const slug = matchMatch[1]
       const game = gamesData.games.find(

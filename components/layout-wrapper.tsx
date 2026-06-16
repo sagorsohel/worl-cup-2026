@@ -3,7 +3,7 @@
 import { useEffect } from "react"
 import { useAppSelector, useAppDispatch } from "@/lib/store"
 import { setLanguage, setDetectedTimezone } from "@/lib/features/uiSlice"
-import { detectBrowserLanguage, LANGUAGES, mapCountryToLanguage } from "@/lib/i18n"
+import { detectBrowserLanguage, LANGUAGES, mapCountryToLanguage, VALID_PREFIXES, getPrefixFromLanguage, getLanguageFromPrefix } from "@/lib/i18n"
 import { usePathname } from "next/navigation"
 import { Footer } from "./footer"
 // import { MobileNav } from "./mobile-nav"
@@ -15,6 +15,36 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const lang = useAppSelector((state) => state.ui.language)
   const pathname = usePathname()
   const { theme, setTheme } = useTheme()
+  const isManageRoute = pathname?.startsWith("/manage")
+
+  // Synchronize URL prefix when pathname or language changes
+  useEffect(() => {
+    if (isManageRoute) return
+
+    const currentPrefix = getPrefixFromLanguage(lang)
+    const pathParts = window.location.pathname.split("/")
+    const firstSeg = pathParts[1]
+
+    if (firstSeg && VALID_PREFIXES.includes(firstSeg.toLowerCase())) {
+      const pathLang = getLanguageFromPrefix(firstSeg)
+      if (pathLang !== lang) {
+        // Language changed from the dropdown, update URL prefix
+        pathParts[1] = currentPrefix
+        const newPath = pathParts.join("/")
+        const search = window.location.search
+        window.history.pushState(null, "", newPath + search)
+        document.cookie = `worldcup2026_lang=${lang}; path=/; max-age=31536000`
+        localStorage.setItem("worldcup2026_lang", lang)
+      }
+    } else {
+      // Path has no prefix. Normalizing URL. Use replaceState to avoid history stack pollution.
+      const newPath = "/" + currentPrefix + window.location.pathname
+      const search = window.location.search
+      window.history.replaceState(null, "", newPath + search)
+      document.cookie = `worldcup2026_lang=${lang}; path=/; max-age=31536000`
+      localStorage.setItem("worldcup2026_lang", lang)
+    }
+  }, [lang, pathname, isManageRoute])
 
   useEffect(() => {
     // Detect browser, local storage, or IP-based region and sync to Redux
@@ -56,6 +86,31 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
             dispatch(setDetectedTimezone(localTz))
           }
         } catch (tzErr) {}
+
+        // Check URL pathname prefix first
+        let pathLang: any = null
+        if (typeof window !== "undefined") {
+          const pathParts = window.location.pathname.split("/")
+          const firstSeg = pathParts[1]
+          if (firstSeg && VALID_PREFIXES.includes(firstSeg.toLowerCase())) {
+            pathLang = getLanguageFromPrefix(firstSeg)
+          }
+        }
+
+        if (pathLang) {
+          dispatch(setLanguage(pathLang))
+          localStorage.setItem("worldcup2026_lang", pathLang)
+          document.cookie = `worldcup2026_lang=${pathLang}; path=/; max-age=31536000`
+          
+          // Still fetch IP-based timezone background
+          try {
+            const data = await getRegionData()
+            if (data && data.timezone) {
+              dispatch(setDetectedTimezone(data.timezone))
+            }
+          } catch (e) {}
+          return
+        }
 
         const saved = localStorage.getItem("worldcup2026_lang")
         if (saved) {
@@ -162,7 +217,6 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
   }, [pathname, theme, setTheme])
 
   const dir = LANGUAGES.find((l) => l.code === lang)?.dir || "ltr"
-  const isManageRoute = pathname?.startsWith("/manage")
 
   if (isManageRoute) {
     return (

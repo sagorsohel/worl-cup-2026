@@ -1271,73 +1271,151 @@ export function detectBrowserLanguage(): LanguageCode {
 }
 
 // Map ISO 3166-1 alpha-2 country codes to our 30 supported languages
+export const COUNTRY_TO_LANG: Record<string, LanguageCode> = {
+  // English US / Canada
+  US: "en-us", CA: "en-us",
+  // English UK / Global
+  GB: "en", IE: "en", ZA: "en", AU: "en", NZ: "en",
+  // Arabic
+  AE: "ar", SA: "ar", QA: "ar", OM: "ar", KW: "ar", BH: "ar", EG: "ar", JO: "ar", LB: "ar", SY: "ar", IQ: "ar", YE: "ar", LY: "ar", MA: "ar", DZ: "ar", TN: "ar", SD: "ar", PS: "ar",
+  // Azerbaijani
+  AZ: "az",
+  // Bengali
+  BD: "bn",
+  // Czech
+  CZ: "cs",
+  // Danish
+  DK: "da",
+  // German
+  DE: "de", AT: "de", LI: "de",
+  // Greek
+  GR: "el", CY: "el",
+  // Spanish Spain
+  ES: "es",
+  // Spanish Latin America
+  MX: "es-la", AR: "es-la", CL: "es-la", CO: "es-la", PE: "es-la", VE: "es-la", EC: "es-la", GT: "es-la", HN: "es-la", NI: "es-la", CR: "es-la", PA: "es-la", UY: "es-la", PY: "es-la", BO: "es-la", SV: "es-la", DO: "es-la", PR: "es-la", CU: "es-la",
+  // French
+  FR: "fr", MC: "fr",
+  // Hindi
+  IN: "hi",
+  // Croatian
+  HR: "hr",
+  // Hungarian
+  HU: "hu",
+  // Indonesian
+  ID: "id",
+  // Italian
+  IT: "it", SM: "it", VA: "it",
+  // Dutch
+  NL: "nl", BE: "nl", SR: "nl",
+  // Norwegian
+  NO: "no",
+  // Polish
+  PL: "pl",
+  // Portuguese Brazil
+  BR: "pt",
+  // Portuguese Portugal / Lusophone
+  PT: "pt-pt", AO: "pt-pt", MZ: "pt-pt", CV: "pt-pt", GW: "pt-pt", ST: "pt-pt", TL: "pt-pt",
+  // Romanian
+  RO: "ro", MD: "ro",
+  // Russian
+  RU: "ru", BY: "ru", KZ: "ru", KG: "ru", TJ: "ru", UZ: "ru",
+  // Slovak
+  SK: "sk",
+  // Slovenian
+  SI: "sl",
+  // Serbian
+  RS: "sr", ME: "sr", BA: "sr",
+  // Swedish
+  SE: "sv",
+  // Turkish
+  TR: "tr",
+  // Chinese
+  CN: "zh", TW: "zh", HK: "zh", SG: "zh"
+}
+
 export function mapCountryToLanguage(countryCode: string): LanguageCode {
-  const code = countryCode.toUpperCase()
-  
-  const mapping: Record<string, LanguageCode> = {
-    // English US / Canada
-    US: "en-us", CA: "en-us",
-    // English UK / Global
-    GB: "en", IE: "en", ZA: "en", AU: "en", NZ: "en",
-    // Arabic
-    AE: "ar", SA: "ar", QA: "ar", OM: "ar", KW: "ar", BH: "ar", EG: "ar", JO: "ar", LB: "ar", SY: "ar", IQ: "ar", YE: "ar", LY: "ar", MA: "ar", DZ: "ar", TN: "ar", SD: "ar", PS: "ar",
-    // Azerbaijani
-    AZ: "az",
-    // Bengali
-    BD: "bn",
-    // Czech
-    CZ: "cs",
-    // Danish
-    DK: "da",
-    // German
-    DE: "de", AT: "de", LI: "de",
-    // Greek
-    GR: "el", CY: "el",
-    // Spanish Spain
-    ES: "es",
-    // Spanish Latin America
-    MX: "es-la", AR: "es-la", CL: "es-la", CO: "es-la", PE: "es-la", VE: "es-la", EC: "es-la", GT: "es-la", HN: "es-la", NI: "es-la", CR: "es-la", PA: "es-la", UY: "es-la", PY: "es-la", BO: "es-la", SV: "es-la", DO: "es-la", PR: "es-la", CU: "es-la",
-    // French
-    FR: "fr", MC: "fr",
-    // Hindi
-    IN: "hi",
-    // Croatian
-    HR: "hr",
-    // Hungarian
-    HU: "hu",
-    // Indonesian
-    ID: "id",
-    // Italian
-    IT: "it", SM: "it", VA: "it",
-    // Dutch
-    NL: "nl", BE: "nl", SR: "nl",
-    // Norwegian
-    NO: "no",
-    // Polish
-    PL: "pl",
-    // Portuguese Brazil
-    BR: "pt",
-    // Portuguese Portugal / Lusophone
-    PT: "pt-pt", AO: "pt-pt", MZ: "pt-pt", CV: "pt-pt", GW: "pt-pt", ST: "pt-pt", TL: "pt-pt",
-    // Romanian
-    RO: "ro", MD: "ro",
-    // Russian
-    RU: "ru", BY: "ru", KZ: "ru", KG: "ru", TJ: "ru", UZ: "ru",
-    // Slovak
-    SK: "sk",
-    // Slovenian
-    SI: "sl",
-    // Serbian
-    RS: "sr", ME: "sr", BA: "sr",
-    // Swedish
-    SE: "sv",
-    // Turkish
-    TR: "tr",
-    // Chinese
-    CN: "zh", TW: "zh", HK: "zh", SG: "zh"
-  }
-  
-  return mapping[code] || "en"
+  return COUNTRY_TO_LANG[countryCode.toUpperCase()] || "en"
+}
+
+export const PREFIX_TO_LANG: Record<string, LanguageCode> = {
+  en: "en",
+  us: "en-us",
+  ar: "ar",
+  az: "az",
+  bn: "bn",
+  cs: "cs",
+  da: "da",
+  de: "de",
+  el: "el",
+  es: "es",
+  "es-la": "es-la",
+  la: "es-la",
+  fr: "fr",
+  hi: "hi",
+  in: "hi",
+  hr: "hr",
+  hu: "hu",
+  id: "id",
+  it: "it",
+  nl: "nl",
+  no: "no",
+  pl: "pl",
+  pt: "pt",
+  br: "pt",
+  "pt-pt": "pt-pt",
+  ro: "ro",
+  ru: "ru",
+  sk: "sk",
+  sl: "sl",
+  sr: "sr",
+  sv: "sv",
+  tr: "tr",
+  zh: "zh",
+  cn: "zh"
+}
+
+export const LANG_TO_PREFIX: Record<LanguageCode, string> = {
+  en: "en",
+  "en-us": "us",
+  ar: "ar",
+  az: "az",
+  bn: "bn",
+  cs: "cs",
+  da: "da",
+  de: "de",
+  el: "el",
+  es: "es",
+  "es-la": "la",
+  fr: "fr",
+  hi: "in",
+  hr: "hr",
+  hu: "hu",
+  id: "id",
+  it: "it",
+  nl: "nl",
+  no: "no",
+  pl: "pl",
+  pt: "pt",
+  "pt-pt": "pt-pt",
+  ro: "ro",
+  ru: "ru",
+  sk: "sk",
+  sl: "sl",
+  sr: "sr",
+  sv: "sv",
+  tr: "tr",
+  zh: "zh"
+}
+
+export const VALID_PREFIXES = Object.keys(PREFIX_TO_LANG)
+
+export function getPrefixFromLanguage(lang: LanguageCode): string {
+  return LANG_TO_PREFIX[lang] || "en"
+}
+
+export function getLanguageFromPrefix(prefix: string): LanguageCode {
+  return PREFIX_TO_LANG[prefix.toLowerCase()] || "en"
 }
 
 // Parse match date local kickoff string and convert to UTC Date based on Stadium Location offsets
