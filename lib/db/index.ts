@@ -13,7 +13,7 @@ export const poolConnection = globalForMysql.poolConnection || mysql.createPool(
   database: process.env.MYSQL_DATABASE || "world_cup_2026",
   port: Number(process.env.MYSQL_PORT || 3306),
   waitForConnections: true,
-  connectionLimit: 3,
+  connectionLimit: 10,
   queueLimit: 0,
   connectTimeout: 5000,
 })

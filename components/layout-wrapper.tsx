@@ -3,7 +3,7 @@
 import { useEffect } from "react"
 import { useAppSelector, useAppDispatch } from "@/lib/store"
 import { setLanguage, setDetectedTimezone } from "@/lib/features/uiSlice"
-import { detectBrowserLanguage, LANGUAGES, mapCountryToLanguage, VALID_PREFIXES, getPrefixFromLanguage, getLanguageFromPrefix } from "@/lib/i18n"
+import { detectBrowserLanguage, LANGUAGES, mapCountryToLanguage, VALID_PREFIXES, getPrefixFromLanguage, getLanguageFromPrefix, getTimezoneLanguage, LanguageCode } from "@/lib/i18n"
 import { usePathname } from "next/navigation"
 import { Footer } from "./footer"
 // import { MobileNav } from "./mobile-nav"
@@ -97,23 +97,10 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
           }
         }
 
-        if (pathLang) {
-          dispatch(setLanguage(pathLang))
-          localStorage.setItem("worldcup2026_lang", pathLang)
-          document.cookie = `worldcup2026_lang=${pathLang}; path=/; max-age=31536000`
-          
-          // Still fetch IP-based timezone background
-          try {
-            const data = await getRegionData()
-            if (data && data.timezone) {
-              dispatch(setDetectedTimezone(data.timezone))
-            }
-          } catch (e) {}
-          return
-        }
-
         const saved = localStorage.getItem("worldcup2026_lang")
-        if (saved) {
+        const isManual = localStorage.getItem("worldcup2026_lang_manual") === "true"
+
+        if (saved && isManual) {
           dispatch(setLanguage(saved as any))
           document.cookie = `worldcup2026_lang=${saved}; path=/; max-age=31536000`
           
@@ -127,32 +114,43 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
           return
         }
 
-        // 1. Initial guess based on timezone/browser locale (instant)
-        const detected = detectBrowserLanguage()
-        dispatch(setLanguage(detected))
-        document.cookie = `worldcup2026_lang=${detected}; path=/; max-age=31536000`
-
-        // 2. Fetch region/country/timezone based on IP (background)
-        const data = await getRegionData()
-        if (data) {
-          if (data.timezone) {
-            dispatch(setDetectedTimezone(data.timezone))
-          }
-          if (data.country_code) {
-            const mappedLang = mapCountryToLanguage(data.country_code)
-            if (mappedLang) {
-              dispatch(setLanguage(mappedLang))
-              localStorage.setItem("worldcup2026_lang", mappedLang)
-              document.cookie = `worldcup2026_lang=${mappedLang}; path=/; max-age=31536000`
-              return
-            }
-          }
+        // 1. Initial guess based on pathname prefix or browser locale
+        if (pathLang) {
+          dispatch(setLanguage(pathLang))
+        } else {
+          const detected = detectBrowserLanguage()
+          dispatch(setLanguage(detected))
+          document.cookie = `worldcup2026_lang=${detected}; path=/; max-age=31536000`
         }
 
-        // If fetch fails or no mapped language, save the initial timezone/browser locale guess
-        localStorage.setItem("worldcup2026_lang", detected)
-        document.cookie = `worldcup2026_lang=${detected}; path=/; max-age=31536000`
+        // 2. Fetch region/country/timezone based on IP (background)
+        try {
+          console.log("[LAYOUT WRAPPER] Fetching region data...")
+          const data = await getRegionData()
+          console.log("[LAYOUT WRAPPER] Geolocation response data:", data)
+          
+          let detectedCountryLang: LanguageCode | null = null
+
+          if (data && data.country_code) {
+            detectedCountryLang = mapCountryToLanguage(data.country_code)
+          } else {
+            // Fallback to client-side timezone check (highly accurate for local developers)
+            detectedCountryLang = getTimezoneLanguage()
+            console.log("[LAYOUT WRAPPER] Geolocation failed/empty, timezone fallback lang:", detectedCountryLang)
+          }
+
+          if (detectedCountryLang) {
+            console.log("[LAYOUT WRAPPER] Setting active language and redirecting prefix to:", detectedCountryLang)
+            dispatch(setLanguage(detectedCountryLang))
+            localStorage.setItem("worldcup2026_lang", detectedCountryLang)
+            document.cookie = `worldcup2026_lang=${detectedCountryLang}; path=/; max-age=31536000`
+            return
+          }
+        } catch (e) {
+          console.error("[LAYOUT WRAPPER] Failed background detection:", e)
+        }
       } catch (e) {
+        console.error("[LAYOUT WRAPPER] General initialization error:", e)
         const detected = detectBrowserLanguage()
         dispatch(setLanguage(detected))
         document.cookie = `worldcup2026_lang=${detected}; path=/; max-age=31536000`
@@ -220,16 +218,16 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
 
   if (isManageRoute) {
     return (
-      <div dir={dir} className="dark min-h-screen bg-slate-955 text-slate-100 font-sans antialiased relative">
+      <div suppressHydrationWarning dir={dir} className="dark min-h-screen bg-slate-955 text-slate-100 font-sans antialiased relative">
         {children}
       </div>
     )
   }
 
   return (
-    <div dir={dir} className="min-h-screen bg-slate-950 text-slate-100 transition-all duration-300 relative flex flex-col justify-between">
+    <div suppressHydrationWarning dir={dir} className="min-h-screen bg-slate-950 text-slate-100 transition-all duration-300 relative flex flex-col justify-between">
       <Navbar />
-      <div className="flex-1 w-full relative z-10">
+      <div suppressHydrationWarning className="flex-1 w-full relative z-10">
         {children}
       </div>
       <Footer />

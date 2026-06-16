@@ -57,8 +57,22 @@ export function proxy(request: NextRequest) {
   }
 
   // If no prefix is present: auto-detect and redirect
+  let detectedLang: string | undefined = undefined
+
+  // Check for overrides in query params first (ideal for testing/debugging)
+  const langParam = request.nextUrl.searchParams.get("lang")
+  const countryParam = request.nextUrl.searchParams.get("country")
+
+  if (langParam && LANGUAGES.some(l => l.code === langParam.toLowerCase())) {
+    detectedLang = langParam.toLowerCase()
+  } else if (countryParam && COUNTRY_TO_LANG[countryParam.toUpperCase()]) {
+    detectedLang = COUNTRY_TO_LANG[countryParam.toUpperCase()]
+  }
+
   // 1. Check if user already has a valid language cookie
-  let detectedLang = request.cookies.get("worldcup2026_lang")?.value
+  if (!detectedLang) {
+    detectedLang = request.cookies.get("worldcup2026_lang")?.value
+  }
   
   if (!detectedLang || !LANGUAGES.some(l => l.code === detectedLang)) {
     // 2. Detect from Cloudflare or Vercel GeoIP country headers
@@ -66,32 +80,57 @@ export function proxy(request: NextRequest) {
     if (country && COUNTRY_TO_LANG[country.toUpperCase()]) {
       detectedLang = COUNTRY_TO_LANG[country.toUpperCase()]
     } else {
-      // 3. Detect from Accept-Language header
-      const acceptLang = request.headers.get("accept-language")
-      if (acceptLang) {
-        const parsedLangs = acceptLang.split(",")
-        for (const rawLang of parsedLangs) {
-          const cleanLang = rawLang.split(";")[0].trim().toLowerCase()
-          // Check for exact language code matches
-          const exactMatch = LANGUAGES.find(l => l.code === cleanLang)
-          if (exactMatch) {
-            detectedLang = exactMatch.code
-            break
+      // Check if we are running locally (localhost or LAN IP)
+      const host = request.headers.get("host") || ""
+      const isLocal = host.includes("localhost") || host.includes("127.0.0.1") || host.includes("192.168.")
+      let localTzLang: any = null
+      
+      if (isLocal) {
+        try {
+          const serverTz = Intl.DateTimeFormat().resolvedOptions().timeZone
+          if (serverTz) {
+            const tzLower = serverTz.toLowerCase()
+            if (tzLower.includes("dhaka")) localTzLang = "bn"
+            else if (tzLower.includes("kolkata") || tzLower.includes("calcutta")) localTzLang = "bn"
+            else if (tzLower.includes("tehran")) localTzLang = "ar"
+            else if (tzLower.includes("baku")) localTzLang = "az"
+            else if (tzLower.includes("istanbul")) localTzLang = "tr"
+            else if (tzLower.includes("shanghai") || tzLower.includes("urumqi")) localTzLang = "zh"
+            else if (tzLower.includes("berlin") || tzLower.includes("busingen") || tzLower.includes("germany")) localTzLang = "de"
           }
-          // Check for base language matches
-          const baseCode = cleanLang.split("-")[0]
-          const baseMatch = LANGUAGES.find(l => l.code === baseCode)
-          if (baseMatch) {
-            if (baseCode === "pt") {
-              detectedLang = cleanLang.includes("pt-pt") ? "pt-pt" : "pt"
-            } else if (baseCode === "es") {
-              detectedLang = ["es-ar", "es-cl", "es-co", "es-cr", "es-do", "es-ec", "es-gt", "es-hn", "es-mx", "es-ni", "es-pa", "es-pe", "es-pr", "es-py", "es-sv", "es-uy", "es-ve", "es-419"].some(loc => cleanLang.includes(loc))
-                ? "es-la"
-                : "es"
-            } else {
-              detectedLang = baseCode
+        } catch (e) {}
+      }
+
+      if (localTzLang) {
+        detectedLang = localTzLang
+      } else {
+        // 3. Detect from Accept-Language header
+        const acceptLang = request.headers.get("accept-language")
+        if (acceptLang) {
+          const parsedLangs = acceptLang.split(",")
+          for (const rawLang of parsedLangs) {
+            const cleanLang = rawLang.split(";")[0].trim().toLowerCase()
+            // Check for exact language code matches
+            const exactMatch = LANGUAGES.find(l => l.code === cleanLang)
+            if (exactMatch) {
+              detectedLang = exactMatch.code
+              break
             }
-            break
+            // Check for base language matches
+            const baseCode = cleanLang.split("-")[0]
+            const baseMatch = LANGUAGES.find(l => l.code === baseCode)
+            if (baseMatch) {
+              if (baseCode === "pt") {
+                detectedLang = cleanLang.includes("pt-pt") ? "pt-pt" : "pt"
+              } else if (baseCode === "es") {
+                detectedLang = ["es-ar", "es-cl", "es-co", "es-cr", "es-do", "es-ec", "es-gt", "es-hn", "es-mx", "es-ni", "es-pa", "es-pe", "es-pr", "es-py", "es-sv", "es-uy", "es-ve", "es-419"].some(loc => cleanLang.includes(loc))
+                  ? "es-la"
+                  : "es"
+              } else {
+                detectedLang = baseCode
+              }
+              break
+            }
           }
         }
       }

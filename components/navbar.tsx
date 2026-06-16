@@ -253,6 +253,7 @@ export function Navbar() {
                         dispatch(setLanguage(l.code))
                         try {
                           localStorage.setItem("worldcup2026_lang", l.code)
+                          localStorage.setItem("worldcup2026_lang_manual", "true")
                           document.cookie = `worldcup2026_lang=${l.code}; path=/; max-age=31536000`
                         } catch { }
                       }}

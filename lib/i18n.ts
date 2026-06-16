@@ -1207,6 +1207,23 @@ export function translate(key: string, lang: LanguageCode): string {
   return dict[lang] || dict["en"]
 }
 
+export function getTimezoneLanguage(): LanguageCode | null {
+  try {
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
+    if (timeZone) {
+      const tzLower = timeZone.toLowerCase()
+      if (tzLower.includes("dhaka")) return "bn" // Bangladesh
+      if (tzLower.includes("tehran")) return "ar" // Iran (RTL Arabic alphabet layout)
+      if (tzLower.includes("baku")) return "az" // Azerbaijan
+      if (tzLower.includes("istanbul")) return "tr" // Turkey
+      if (tzLower.includes("kolkata") || tzLower.includes("calcutta")) return "bn" // West Bengal (Bengali)
+      if (tzLower.includes("shanghai") || tzLower.includes("urumqi")) return "zh" // China
+      if (tzLower.includes("berlin") || tzLower.includes("busingen") || tzLower.includes("germany")) return "de" // Germany
+    }
+  } catch (e) {}
+  return null
+}
+
 // Auto-detect browser/user locale and map to our 30 supported languages
 export function detectBrowserLanguage(): LanguageCode {
   if (typeof window === "undefined" || !navigator) {
@@ -1221,20 +1238,9 @@ export function detectBrowserLanguage(): LanguageCode {
     }
   } catch (e) {}
 
-  // 2. Check timezone for specific regions (like Bangladesh -> bn, Iran -> ar/fa, etc.)
-  try {
-    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
-    if (timeZone) {
-      const tzLower = timeZone.toLowerCase()
-      if (tzLower.includes("dhaka")) return "bn" // Bangladesh
-      if (tzLower.includes("tehran")) return "ar" // Iran (RTL Arabic alphabet layout)
-      if (tzLower.includes("baku")) return "az" // Azerbaijan
-      if (tzLower.includes("istanbul")) return "tr" // Turkey
-      if (tzLower.includes("kolkata") || tzLower.includes("calcutta")) return "bn" // West Bengal (Bengali)
-      if (tzLower.includes("shanghai") || tzLower.includes("urumqi")) return "zh" // China
-      if (tzLower.includes("berlin") || tzLower.includes("busingen") || tzLower.includes("germany")) return "de" // Germany
-    }
-  } catch (e) {}
+  // 2. Check timezone for specific regions
+  const tzLang = getTimezoneLanguage()
+  if (tzLang) return tzLang
 
   // 3. Get preferred languages list
   const browserLangs = navigator.languages || [navigator.language || "en"]
