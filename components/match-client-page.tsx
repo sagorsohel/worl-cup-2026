@@ -40,6 +40,7 @@ import {
   formatLocalTime,
   formatCountdownTime,
   getTimezoneAbbr,
+  getLocalizedTeamName,
 } from "@/lib/i18n"
 import { formatScorers, getScorersArray, getImageUrl } from "@/lib/utils"
 
@@ -92,15 +93,7 @@ function Countdown({ dateStr, stadiumId, lang }: { dateStr: string; stadiumId: s
 }
 
 const getTeamName = (team: Team | null | undefined, fallback: string, activeLang: LanguageCode) => {
-  if (!team) return fallback
-  if (team.translations) {
-    try {
-      const parsed = typeof team.translations === "string" ? JSON.parse(team.translations) : team.translations
-      if (parsed && parsed[activeLang]) return parsed[activeLang]
-    } catch { }
-  }
-  if (activeLang === "ar" && team.name_fa) return team.name_fa
-  return team.name_en
+  return getLocalizedTeamName(team, fallback, activeLang)
 }
 
 const getTeamSlug = (team: Team | null | undefined) => {
@@ -228,6 +221,11 @@ const BUFFER_STAGE_TRANSLATIONS: Record<string, Record<string, string>> = {
     sv: "Ansluter till server...",
     tr: "Sunucuya Bağlanıyor...",
     zh: "正在连接服务器...",
+    ja: "サーバーに接続中...",
+    ko: "서버에 연결 중...",
+    vi: "Đang kết nối tới máy chủ...",
+    he: "מתחבר לשרת...",
+    th: "กำลังเชื่อมต่อกับเซิร์ฟเวอร์..."
   },
   buffering: {
     en: "Buffering HD Stream...",
@@ -260,6 +258,11 @@ const BUFFER_STAGE_TRANSLATIONS: Record<string, Record<string, string>> = {
     sv: "Buffrar HD-ström...",
     tr: "HD Yayın Yükleniyor...",
     zh: "正在缓冲高清直播...",
+    ja: "HD配信を読み込み中...",
+    ko: "HD 스트림 버퍼링 중...",
+    vi: "Đang tải luồng HD...",
+    he: "טוען שידור HD...",
+    th: "กำลังโหลดสตรีม HD..."
   }
 }
 
@@ -474,7 +477,8 @@ export default function MatchClientPage({ slug }: { slug: string }) {
     if (stadium.translations) {
       try {
         const parsed = typeof stadium.translations === "string" ? JSON.parse(stadium.translations) : stadium.translations
-        if (parsed && parsed[lang]) return parsed[lang]
+        const resolvedLang = lang === "ch" ? "de" : lang
+        if (parsed && parsed[resolvedLang]) return parsed[resolvedLang]
       } catch { }
     }
     if (lang === "ar" && stadium.name_fa && stadium.city_fa) {
@@ -917,7 +921,7 @@ export default function MatchClientPage({ slug }: { slug: string }) {
                   <div className="flex items-center justify-between gap-4 text-slate-300">
                     {/* Home Scorers */}
                     <div className="truncate flex-1 flex flex-col gap-0.5 min-w-0">
-                      <span className="text-[7px] text-slate-500 uppercase tracking-wider font-bold mb-0.5">{selectedGame.home_team_name_en || (lang === "ar" ? "المضيف" : "HOME")}</span>
+                      <span className="text-[7px] text-slate-500 uppercase tracking-wider font-bold mb-0.5">{homeName && homeName !== "TBD" ? homeName : (lang === "ar" ? "المضيف" : "HOME")}</span>
                       {homeScorersList.length > 0 ? (
                         homeScorersList.map((scorer, idx) => (
                           <div key={idx} className="truncate">{scorer}</div>
@@ -932,7 +936,7 @@ export default function MatchClientPage({ slug }: { slug: string }) {
 
                     {/* Away Scorers */}
                     <div className="truncate flex-1 text-right flex flex-col gap-0.5 min-w-0">
-                      <span className="text-[7px] text-slate-500 uppercase tracking-wider font-bold mb-0.5">{selectedGame.away_team_name_en || (lang === "ar" ? "الضيف" : "AWAY")}</span>
+                      <span className="text-[7px] text-slate-500 uppercase tracking-wider font-bold mb-0.5">{awayName && awayName !== "TBD" ? awayName : (lang === "ar" ? "الضيف" : "AWAY")}</span>
                       {awayScorersList.length > 0 ? (
                         awayScorersList.map((scorer, idx) => (
                           <div key={idx} className="truncate">{scorer}</div>

@@ -46,7 +46,13 @@ const MEMBERSHIP_TRANSLATIONS: Record<string, string> = {
   sr: "Чланство",
   sv: "Medlemskap",
   tr: "Üyelik",
-  zh: "会员"
+  zh: "会员",
+  ja: "メンバーシップ",
+  ko: "멤버십",
+  vi: "Hội viên",
+  he: "חברות",
+  th: "สมาชิกภาพ",
+  ch: "Mitgliedschaft"
 }
 
 function AdScriptContainer({ scriptHtml, className }: { scriptHtml?: string; className?: string }) {

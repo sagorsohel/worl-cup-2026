@@ -13,6 +13,7 @@ import {
   parseStadiumLocalDate,
   formatCountdownTime,
   getTimezoneAbbr,
+  getLocalizedTeamName,
 } from "@/lib/i18n"
 import { formatScorers, getScorersArray, getImageUrl } from "@/lib/utils"
 
@@ -91,15 +92,7 @@ export default function MatchCard({ match, flagMap, stadiumName, teamNamesMap }:
 
   const getTeamName = (teamId: string) => {
     const team = teamNamesMap[teamId]
-    if (!team) return "TBD"
-    if (team.translations) {
-      try {
-        const parsed = typeof team.translations === "string" ? JSON.parse(team.translations) : team.translations
-        if (parsed && parsed[lang]) return parsed[lang]
-      } catch { }
-    }
-    if (lang === "ar" && team.name_fa) return team.name_fa
-    return team.name_en
+    return getLocalizedTeamName(team, "TBD", lang)
   }
 
   const getTeamCode = (teamId: string) => {

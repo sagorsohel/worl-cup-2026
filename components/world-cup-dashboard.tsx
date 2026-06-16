@@ -143,7 +143,8 @@ export default function WorldCupDashboard() {
     if (stadium.translations) {
       try {
         const parsed = typeof stadium.translations === "string" ? JSON.parse(stadium.translations) : stadium.translations
-        if (parsed && parsed[lang]) return parsed[lang]
+        const resolvedLang = lang === "ch" ? "de" : lang
+        if (parsed && parsed[resolvedLang]) return parsed[resolvedLang]
       } catch { }
     }
     if (lang === "ar" && stadium.name_fa && stadium.city_fa) {
