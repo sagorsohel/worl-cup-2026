@@ -27,6 +27,7 @@ import {
 import {
   translate,
   getLocalizedTeamName,
+  getLocalizedStadiumName,
 } from "@/lib/i18n"
 import { getImageUrl } from "@/lib/utils"
 
@@ -85,18 +86,7 @@ export default function TeamClientPage({ teamId }: { teamId: string }) {
 
   const getStadiumName = (stadiumId: string) => {
     const stadium = stadiumsMap[stadiumId]
-    if (!stadium) return ""
-    if (stadium.translations) {
-      try {
-        const parsed = typeof stadium.translations === "string" ? JSON.parse(stadium.translations) : stadium.translations
-        const resolvedLang = lang === "ch" ? "de" : lang
-        if (parsed && parsed[resolvedLang]) return parsed[resolvedLang]
-      } catch { }
-    }
-    if (lang === "ar" && stadium.name_fa && stadium.city_fa) {
-      return `${stadium.name_fa}, ${stadium.city_fa}`
-    }
-    return `${stadium.name_en}, ${stadium.city_en}`
+    return getLocalizedStadiumName(stadium, lang)
   }
 
   // Flag lookup map

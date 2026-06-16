@@ -47,9 +47,9 @@ const MEMBERSHIP_TRANSLATIONS: Record<string, string> = {
   sv: "Medlemskap",
   tr: "Üyelik",
   zh: "会员",
-  ja: "メンバーシップ",
-  ko: "멤버십",
-  vi: "Hội viên",
+  jp: "メンバーシップ",
+  kr: "멤버십",
+  vn: "Hội viên",
   he: "חברות",
   th: "สมาชิกภาพ",
   ch: "Mitgliedschaft"

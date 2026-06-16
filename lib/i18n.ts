@@ -5,7 +5,7 @@ export type LanguageCode =
   | "en" | "en-us" | "ar" | "az" | "bn" | "cs" | "da" | "de" | "el" | "es"
   | "es-la" | "fr" | "hi" | "hr" | "hu" | "id" | "it" | "nl" | "no" | "pl"
   | "pt" | "pt-pt" | "ro" | "ru" | "sk" | "sl" | "sr" | "sv" | "tr" | "zh"
-  | "ja" | "ko" | "vi" | "he" | "th" | "ch"
+  | "jp" | "kr" | "vn" | "he" | "th" | "ch"
 
 export interface LanguageConfig {
   code: LanguageCode
@@ -44,9 +44,9 @@ export const LANGUAGES: LanguageConfig[] = [
   { code: "sv", name: "Svenska", dir: "ltr" },
   { code: "tr", name: "Türkçe", dir: "ltr" },
   { code: "zh", name: "中文", dir: "ltr" },
-  { code: "ja", name: "日本語", dir: "ltr" },
-  { code: "ko", name: "한국어", dir: "ltr" },
-  { code: "vi", name: "Tiếng Việt", dir: "ltr" },
+  { code: "jp", name: "日本語", dir: "ltr" },
+  { code: "kr", name: "한국어", dir: "ltr" },
+  { code: "vn", name: "Tiếng Việt", dir: "ltr" },
   { code: "he", name: "עברית", dir: "rtl" },
   { code: "th", name: "ไทย", dir: "ltr" },
   { code: "ch", name: "Switzerland", dir: "ltr" }
@@ -64,9 +64,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Campeonato do Mundo FIFA 2026", ro: "Cupa Mondială FIFA 2026", ru: "Чемпионат мира по футболу 2026",
     sk: "Majstrovstvá sveta FIFA 2026", sl: "Svetovno prvenstvo v nogometu FIFA 2026", sr: "ФИФА Светско првенство 2026",
     sv: "FIFA Fotbolls-VM 2026", tr: "2026 FIFA Dünya Kupası", zh: "2026年FIFA世界杯",
-    ja: "FIFAワールドカップ 2026",
-    ko: "FIFA 월드컵 2026",
-    vi: "FIFA World Cup 2026",
+    jp: "FIFAワールドカップ 2026",
+    kr: "FIFA 월드컵 2026",
+    vn: "FIFA World Cup 2026",
     he: "גביע העולם של פיפ״א 2026",
     th: "ฟีฟ่าเวิลด์คัพ 2026"
   },
@@ -81,9 +81,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Acompanhamento de Equipas e Jogos", ro: "Urmărire Echipe și Meciuri", ru: "Трекер команд и матчей",
     sk: "Sledovanie tímov a zápasov", sl: "Spremljevalec ekip in tekem", sr: "Праћење репрезентација и утакмица",
     sv: "Lag- & Match-tracker", tr: "Takımlar ve Maçlar Takipçisi", zh: "球队与赛程追踪器",
-    ja: "チーム＆マッチトラッカー",
-    ko: "팀 및 경기 추적기",
-    vi: "Trình theo dõi đội bóng & trận đấu",
+    jp: "チーム＆マッチトラッカー",
+    kr: "팀 및 경기 추적기",
+    vn: "Trình theo dõi đội bóng & trận đấu",
     he: "מעקב נבחרות ומשחקים",
     th: "ตัวติดตามทีมและข้อมูลการแข่งขัน"
   },
@@ -98,9 +98,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Centro do Jogo", ro: "Centru Meci", ru: "Матч-центр",
     sk: "Centrum zápasov", sl: "Središče za tekme", sr: "Центар утакмице",
     sv: "Matchcenter", tr: "Maç Merkezi", zh: "赛事中心",
-    ja: "マッチセンター",
-    ko: "매치 센터",
-    vi: "Trung tâm Trận đấu",
+    jp: "マッチセンター",
+    kr: "매치 센터",
+    vn: "Trung tâm Trận đấu",
     he: "מרכז המשחקים",
     th: "ศูนย์ข้อมูลการแข่งขัน"
   },
@@ -115,9 +115,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Jogos", ro: "Program", ru: "Календарь",
     sk: "Rozpis zápasov", sl: "Spored tekem", sr: "Распоред утакмица",
     sv: "Kampprogram", tr: "Fikstür", zh: "赛程",
-    ja: "日程・結果",
-    ko: "경기 일정",
-    vi: "Lịch thi đấu",
+    jp: "日程・結果",
+    kr: "경기 일정",
+    vn: "Lịch thi đấu",
     he: "לוח משחקים",
     th: "โปรแกรมการแข่งขัน"
   },
@@ -132,9 +132,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Jogos", ro: "Meciuri", ru: "Матчи",
     sk: "Zápasy", sl: "Tekme", sr: "Утакмице",
     sv: "Matcher", tr: "Maçlar", zh: "比赛",
-    ja: "試合",
-    ko: "경기",
-    vi: "Trận đấu",
+    jp: "試合",
+    kr: "경기",
+    vn: "Trận đấu",
     he: "משחקים",
     th: "การแข่งขัน"
   },
@@ -149,9 +149,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Jogos de Hoje", ro: "Meciurile de azi", ru: "Матчи сегодня",
     sk: "Dnešné zápasy", sl: "Današnje tekme", sr: "Данашње утакмице",
     sv: "Dagens matcher", tr: "Bugünün Maçları", zh: "今日比赛",
-    ja: "今日の試合",
-    ko: "오늘의 경기",
-    vi: "Trận đấu hôm nay",
+    jp: "今日の試合",
+    kr: "오늘의 경기",
+    vn: "Trận đấu hôm nay",
     he: "משחקי היום",
     th: "การแข่งขันวันนี้"
   },
@@ -166,9 +166,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Equipa", ro: "Echipă", ru: "Команда",
     sk: "Tím", sl: "Ekipa", sr: "Репрезентација",
     sv: "Lag", tr: "Takım", zh: "球队",
-    ja: "チーム",
-    ko: "팀",
-    vi: "Đội",
+    jp: "チーム",
+    kr: "팀",
+    vn: "Đội",
     he: "נבחרת",
     th: "ทีม"
   },
@@ -183,9 +183,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Equipas e Grupos", ro: "Echipe și Grupe", ru: "Команды и группы",
     sk: "Tímy a skupiny", sl: "Ekipe in skupine", sr: "Репрезентације и групе",
     sv: "Lag & Grupper", tr: "Takımlar ve Gruplar", zh: "球队与分组",
-    ja: "チーム＆グループ",
-    ko: "팀 및 조",
-    vi: "Đội bóng & Bảng đấu",
+    jp: "チーム＆グループ",
+    kr: "팀 및 조",
+    vn: "Đội bóng & Bảng đấu",
     he: "נבחרות ובתים",
     th: "ทีมและกลุ่ม"
   },
@@ -199,7 +199,12 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     no: "Grupper", pl: "Grupy", pt: "Grupos",
     "pt-pt": "Grupos", ro: "Grupe", ru: "Группы",
     sk: "Skupiny", sl: "Skupine", sr: "Групе",
-    sv: "Grupper", tr: "Gruplar", zh: "分组"
+    sv: "Grupper", tr: "Gruplar", zh: "分组",
+    jp: "グループ",
+    kr: "조별 리그",
+    vn: "Bảng đấu",
+    he: "בתים",
+    th: "กลุ่ม"
   },
   search_placeholder: {
     en: "Search teams, matchdays, groups...", "en-us": "Search teams, matchdays, groups...", ar: "البحث عن الفرق، الأيام، المجموعات...",
@@ -212,9 +217,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Procurar equipas, jornadas, grupos...", ro: "Caută echipe, etape, grupe...", ru: "Поиск команд, туров, групп...",
     sk: "Hľadať tímy, hracie dni, skupiny...", sl: "Išči ekipe, igralne dni, skupine...", sr: "Претражи репрезентације, кола, групе...",
     sv: "Sök efter lag, spelomgångar, grupper...", tr: "Takımları, maç günlerini, grupları ara...", zh: "搜索球队、比赛日、分组...",
-    ja: "チーム、試合日、グループなどを検索...",
-    ko: "팀, 경기일, 조 검색...",
-    vi: "Tìm kiếm đội bóng, vòng đấu, bảng đấu...",
+    jp: "チーム、試合日、グループなどを検索...",
+    kr: "팀, 경기일, 조 검색...",
+    vn: "Tìm kiếm đội bóng, vòng đấu, bảng đấu...",
     he: "חיпуск נבחרות, ימי משחק, בתים...",
     th: "ค้นหาทีม, วันแข่งขัน, กลุ่ม..."
   },
@@ -229,9 +234,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Filtrar jogos:", ro: "Filtrează meciuri:", ru: "Фильтр матчей:",
     sk: "Filtrovať zápasy:", sl: "Filtriraj tekme:", sr: "Филтрирај утакмице:",
     sv: "Filtrera matcher:", tr: "Maçları filtrele:", zh: "赛程 筛选：",
-    ja: "試合をフィルター",
-    ko: "경기 필터",
-    vi: "Lọc trận đấu",
+    jp: "試合をフィルター",
+    kr: "경기 필터",
+    vn: "Lọc trận đấu",
     he: "סינון משחקים",
     th: "กรองการแข่งขัน"
   },
@@ -246,9 +251,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Todos os Jogos", ro: "Toate meciurile", ru: "Все матчи",
     sk: "Všetky zápasy", sl: "Vse tekme", sr: "Све утакмице",
     sv: "Alla matcher", tr: "Tüm Maçlar", zh: "全部比赛",
-    ja: "すべての試合",
-    ko: "모든 경기",
-    vi: "Tất cả trận đấu",
+    jp: "すべての試合",
+    kr: "모든 경기",
+    vn: "Tất cả trận đấu",
     he: "כל המשחקים",
     th: "การแข่งขันทั้งหมด"
   },
@@ -263,9 +268,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Terminados", ro: "Finalizat", ru: "Завершенные",
     sk: "Ukončené", sl: "Končano", sr: "Завршено",
     sv: "Slutspelade", tr: "Bitenler", zh: "已结束",
-    ja: "終了",
-    ko: "종료됨",
-    vi: "Đã kết thúc",
+    jp: "終了",
+    kr: "종료됨",
+    vn: "Đã kết thúc",
     he: "הסתיים",
     th: "สิ้นสุดแล้ว"
   },
@@ -280,9 +285,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Próximos", ro: "Viitoare", ru: "Предстоящие",
     sk: "Nadchádzajúce", sl: "Prihajajoče", sr: "Предстојеће",
     sv: "Kommande", tr: "Gelecekler", zh: "即将进行",
-    ja: "予定",
-    ko: "예정됨",
-    vi: "Sắp diễn ra",
+    jp: "予定",
+    kr: "예정됨",
+    vn: "Sắp diễn ra",
     he: "טרם החל",
     th: "ยังไม่เริ่ม"
   },
@@ -297,9 +302,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Limpar Filtros", ro: "Șterge filtrele", ru: "Сбросить фильтры",
     sk: "Vymazať filtre", sl: "Počisti filtre", sr: "Очисти филтре",
     sv: "Rensa filter", tr: "Filtreleri Temizle", zh: "清除筛选",
-    ja: "フィルターをクリア",
-    ko: "필터 초기화",
-    vi: "Xóa bộ lọc",
+    jp: "フィルターをクリア",
+    kr: "필터 초기화",
+    vn: "Xóa bộ lọc",
     he: "ניקוי מסננים",
     th: "ล้างตัวกรอง"
   },
@@ -314,9 +319,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Selecione o Grupo ou Fase de Eliminação:", ro: "Selectează Grupa sau Faza Eliminatorie:", ru: "Выберите группу или стадию плей-офф:",
     sk: "Vyberte skupinu alebo vyraďovaciu fázu:", sl: "Izberite skupino ali izločilni del:", sr: "Изабери групу или нокаут фазу:",
     sv: "Välj grupp eller slutspelsfas:", tr: "Grup veya Eleme Aşaması Seçin:", zh: "选择分组 or 淘汰赛阶段：",
-    ja: "グループステージ選択",
-    ko: "조별 리그 선택",
-    vi: "Chọn vòng bảng",
+    jp: "グループステージ選択",
+    kr: "조별 리그 선택",
+    vn: "Chọn vòng bảng",
     he: "בחר שלב בתים",
     th: "เลือกการแข่งขันรอบแบ่งกลุ่ม"
   },
@@ -331,9 +336,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Repor todas as equipas", ro: "Resetează la toate grupele", ru: "Сбросить на все группы",
     sk: "Resetovať na všetky skupiny", sl: "Ponastavi na vse skupine", sr: "Врати на све групе",
     sv: "Återställ till alla grupper", tr: "Tüm Gruplara Sıfırla", zh: "重置为全部分组",
-    ja: "グループをリセット",
-    ko: "그룹 초기화",
-    vi: "Đặt lại bảng đấu",
+    jp: "グループをリセット",
+    kr: "그룹 초기화",
+    vn: "Đặt lại bảng đấu",
     he: "איפוס בתים",
     th: "รีเซ็ตกลุ่ม"
   },
@@ -348,9 +353,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Total de Jogos", ro: "Total Meciuri", ru: "Всего матчей",
     sk: "Zápasy celkovo", sl: "Skupaj tekem", sr: "Укупно утакмица",
     sv: "Matcher totalt", tr: "Toplam Maçlar", zh: "总比赛场次",
-    ja: "総試合数",
-    ko: "총 경기 수",
-    vi: "Tổng số trận đấu",
+    jp: "総試合数",
+    kr: "총 경기 수",
+    vn: "Tổng số trận đấu",
     he: "סה״כ משחקים",
     th: "การแข่งขันทั้งหมด"
   },
@@ -365,9 +370,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Jogados", ro: "Jucate", ru: "Сыграно",
     sk: "Odehrané", sl: "Odigrano", sr: "Одиграно",
     sv: "Spelade", tr: "Oynananlar", zh: "已赛",
-    ja: "消化済",
-    ko: "진행됨",
-    vi: "Đã chơi",
+    jp: "消化済",
+    kr: "진행됨",
+    vn: "Đã chơi",
     he: "שוחקו",
     th: "แข่งแล้ว"
   },
@@ -382,9 +387,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Equipas", ro: "Echipe", ru: "Команды",
     sk: "Tímy", sl: "Ekipe", sr: "Репрезентације",
     sv: "Lag", tr: "Takımlar", zh: "球队",
-    ja: "チーム",
-    ko: "팀",
-    vi: "Đội",
+    jp: "チーム",
+    kr: "팀",
+    vn: "Đội",
     he: "נבחרות",
     th: "ทีม"
   },
@@ -399,9 +404,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Jogos Realizados", ro: "Meciuri Jucate", ru: "Сыгранные матчи",
     sk: "Odehrané zápasy", sl: "Odigrane tekme", sr: "Одигране утакмице",
     sv: "Spelade matcher", tr: "Oynanan Maçlar", zh: "已赛场次",
-    ja: "終了した試合",
-    ko: "진행된 경기",
-    vi: "Trận đấu đã chơi",
+    jp: "終了した試合",
+    kr: "진행된 경기",
+    vn: "Trận đấu đã chơi",
     he: "משחקים ששוחקו",
     th: "แมตช์ที่แข่งแล้ว"
   },
@@ -416,9 +421,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Próximos Jogos", ro: "Meciuri Viitoare", ru: "Предстоящие матчи",
     sk: "Nadchádzajúce zápasy", sl: "Prihajajoče tekme", sr: "Предстојеће утакмице",
     sv: "Kommande matcher", tr: "Gelecek Maçlar", zh: "即将进行比赛",
-    ja: "今後の試合",
-    ko: "예정된 경기",
-    vi: "Trận đấu sắp tới",
+    jp: "今後の試合",
+    kr: "예정된 경기",
+    vn: "Trận đấu sắp tới",
     he: "משחקים קרובים",
     th: "แมตช์ที่กำลังจะมาถึง"
   },
@@ -433,9 +438,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Voltar ao Panel", ro: "Înapoi la Panou", ru: "Назад на панель",
     sk: "Späť na nástenku", sl: "Nazaj na nadzorno ploščo", sr: "Назад на контролну таблу",
     sv: "Tillbaka till översikten", tr: "Panoya Geri Dön", zh: "返回控制台",
-    ja: "ダッシュボードに戻る",
-    ko: "대시보드로 돌아가기",
-    vi: "Quay lại bảng điều khiển",
+    jp: "ダッシュボードに戻る",
+    kr: "대시보드로 돌아가기",
+    vn: "Quay lại bảng điều khiển",
     he: "חזרה ללוח הבקרה",
     th: "กลับไปที่แดชบอร์ด"
   },
@@ -450,9 +455,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Voltar à Linha do Tempo", ro: "Înapoi la Cronologie", ru: "Назад к расписанию",
     sk: "Späť na časovú os", sl: "Nazaj na časovnico", sr: "Назад на распоред",
     sv: "Tillbaka till tidslinjen", tr: "Zaman Çizelgesine Dön", zh: "返回赛程表",
-    ja: "タイムラインに戻る",
-    ko: "타임라인으로 돌아가기",
-    vi: "Quay lại dòng thời gian",
+    jp: "タイムラインに戻る",
+    kr: "타임라인으로 돌아가기",
+    vn: "Quay lại dòng thời gian",
     he: "חזרה לציר הזמן",
     th: "กลับไปที่ไทม์ไลน์"
   },
@@ -467,9 +472,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Estádio", ro: "Stadion", ru: "Стадион",
     sk: "Štadión", sl: "Stadion", sr: "Стадион",
     sv: "Stadion", tr: "Stadyum", zh: "体育场",
-    ja: "スタジアム",
-    ko: "경기장",
-    vi: "Sân vận động",
+    jp: "スタジアム",
+    kr: "경기장",
+    vn: "Sân vận động",
     he: "אצטדיון",
     th: "สนามแข่งขัน"
   },
@@ -484,9 +489,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Marcadores", ro: "Marcatori", ru: "Авторы голов",
     sk: "Strelci gólov", sl: "Strelci", sr: "Стрелци",
     sv: "Målskyttar", tr: "Golcüler", zh: "进球球员",
-    ja: "得点者",
-    ko: "득점자",
-    vi: "Cầu thủ ghi bàn",
+    jp: "得点者",
+    kr: "득점자",
+    vn: "Cầu thủ ghi bàn",
     he: "כובשי השערים",
     th: "ผู้ทำประตู"
   },
@@ -501,9 +506,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Estatísticas do Estádio", ro: "Statistici Stadion", ru: "О стадионе",
     sk: "Štatistiky štadióna", sl: "Statistika stadiona", sr: "Подаци о стадиону",
     sv: "Stadionstatistik", tr: "Stadyum İstatistikleri", zh: "体育场信息",
-    ja: "スタジアム統計",
-    ko: "경기장 통계",
-    vi: "Thống kê sân vận động",
+    jp: "スタジアム統計",
+    kr: "경기장 통계",
+    vn: "Thống kê sân vận động",
     he: "נתוני האצטדיון",
     th: "สถิติสนามแข่งขัน"
   },
@@ -518,9 +523,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Capacidade", ro: "Capacitate", ru: "Вместимость",
     sk: "Kapacita", sl: "Kapaciteta", sr: "Капацитет",
     sv: "Kapacitet", tr: "Kapasite", zh: "容纳人数",
-    ja: "収容人数",
-    ko: "수용 인원",
-    vi: "Sức chứa",
+    jp: "収容人数",
+    kr: "수용 인원",
+    vn: "Sức chứa",
     he: "תכולה",
     th: "ความจุสนาม"
   },
@@ -535,9 +540,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Localização", ro: "Locație", ru: "Местоположение",
     sk: "Umiestnenie", sl: "Lokacija", sr: "Локација",
     sv: "Plats", tr: "Konum", zh: "地点",
-    ja: "所在地",
-    ko: "위치",
-    vi: "Địa điểm",
+    jp: "所在地",
+    kr: "위치",
+    vn: "Địa điểm",
     he: "מיקום",
     th: "สถานที่"
   },
@@ -552,9 +557,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "lugares", ro: "locuri", ru: "мест",
     sk: "sedadiel", sl: "sedišč", sr: "места",
     sv: "platser", tr: "koltuk", zh: "席位",
-    ja: "席",
-    ko: "석",
-    vi: "Chỗ ngồi",
+    jp: "席",
+    kr: "석",
+    vn: "Chỗ ngồi",
     he: "מושבים",
     th: "ที่นั่ง"
   },
@@ -569,9 +574,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Calendário do Jogo", ro: "Program Meci", ru: "Расписание матча",
     sk: "Rozpis zápasov", sl: "Urnik tekem", sr: "Распоред утакмице",
     sv: "Matchschema", tr: "Maç Takvimi", zh: "比赛日程",
-    ja: "試合日程",
-    ko: "경기 일정",
-    vi: "Lịch thi đấu",
+    jp: "試合日程",
+    kr: "경기 일정",
+    vn: "Lịch thi đấu",
     he: "לוח זמנים למשחק",
     th: "ตารางเวลาการแข่งขัน"
   },
@@ -586,9 +591,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Hora de Início Local", ro: "Ora de începere locală", ru: "Местное время начала",
     sk: "Miestny čas výkopu", sl: "Lokalni čas začetka", sr: "Локално време почетка",
     sv: "Lokal avsparkstid", tr: "Yerel Başlama Saati", zh: "当地开球时间",
-    ja: "現地のキックオフ時間",
-    ko: "현지 킥오프",
-    vi: "Giờ bắt đầu địa phương",
+    jp: "現地のキックオフ時間",
+    kr: "현지 킥오프",
+    vn: "Giờ bắt đầu địa phương",
     he: "שעת בעיטת הפתיחה המקומית",
     th: "เวลาคิกออฟตามเวลาท้องถิ่น"
   },
@@ -603,9 +608,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Estatísticas do Jogo", ro: "Statistici Meci", ru: "Статистика матча",
     sk: "Štatistiky zápasu", sl: "Statistika tekme", sr: "Статистика утакмице",
     sv: "Matchstatistik", tr: "Maç İstatistikleri", zh: "比赛数据",
-    ja: "試合統計",
-    ko: "경기 통계",
-    vi: "Thống kê trận đấu",
+    jp: "試合統計",
+    kr: "경기 통계",
+    vn: "Thống kê trận đấu",
     he: "סטטיסטיקת המשחק",
     th: "สถิติการแข่งขัน"
   },
@@ -620,9 +625,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Posse de Bola", ro: "Posesie", ru: "Владение мячом",
     sk: "Držanie lopty", sl: "Posest žoge", sr: "Посед лопте",
     sv: "Bollinnehav", tr: "Topa Sahip Olma", zh: "控球率",
-    ja: "ボール支配率",
-    ko: "점유율",
-    vi: "Kiểm soát bóng",
+    jp: "ボール支配率",
+    kr: "점유율",
+    vn: "Kiểm soát bóng",
     he: "החזקת כדור",
     th: "อัตราการครองบอล"
   },
@@ -637,9 +642,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Remates", ro: "Șuturi", ru: "Удары",
     sk: "Strely", sl: "Streli", sr: "Ударци",
     sv: "Skott", tr: "Şutlar", zh: "射门",
-    ja: "シュート数",
-    ko: "슈팅",
-    vi: "Cú sút",
+    jp: "シュート数",
+    kr: "슈팅",
+    vn: "Cú sút",
     he: "בעיטות",
     th: "โอกาสยิง"
   },
@@ -654,9 +659,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Faltas", ro: "Faulturi", ru: "Фолы",
     sk: "Fauly", sl: "Prekrški", sr: "Прекршаји",
     sv: "Regelbrott", tr: "Fauller", zh: "犯规",
-    ja: "ファウル数",
-    ko: "파울",
-    vi: "Phạm lỗi",
+    jp: "ファウル数",
+    kr: "파울",
+    vn: "Phạm lỗi",
     he: "עבירות",
     th: "ฟาวล์"
   },
@@ -671,9 +676,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Registe-se para Assistir a cada Jogo ao Vivo", ro: "Înregistrează-te pentru a viziona fiecare meci live", ru: "Зарегистрируйтесь, чтобы смотреть каждый матч в эфире",
     sk: "Zaregistrujte sa a sledujte každý zápas naživo", sl: "Registrirajte se za ogled vsake tekme v živo", sr: "Региструјте се за гледање сваке утакмице уживо",
     sv: "Registrera dig för att se varje match live", tr: "Her Maçı Canlı İzlemek İçin Üye Olun", zh: "请注册以观看每场比赛直播",
-    ja: "無料アカウント登録でHDライブ配信を視聴可能",
-    ko: "HD 라이브 스트림을 보려면 무료 계정을 만드십시오",
-    vi: "Tạo tài khoản miễn phí để xem trực tiếp HD",
+    jp: "無料アカウント登録でHDライブ配信を視聴可能",
+    kr: "HD 라이브 스트림을 보려면 무료 계정을 만드십시오",
+    vn: "Tạo tài khoản miễn phí để xem trực tiếp HD",
     he: "צור חשבון בחינם כדי לצפות בשידור חי ב-HD",
     th: "สร้างบัญชีฟรีเพื่อรับชมการถ่ายทอดสดแบบ HD"
   },
@@ -688,9 +693,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "TRANSMISSÃO AO VIVO DE FUTEBOL", ro: "TRANSMISIE LIVE FOTBAL", ru: "ФУТБОЛЬНАЯ ТРАНСЛЯЦИЯ",
     sk: "FUTBAL NAŽIVO STREAM", sl: "NOGOMET PRENOS V ŽIVO", sr: "ФУДБАЛ ПРЕНОС УЖИВО",
     sv: "FOTBOLLS-LIVE-STREAM", tr: "FUTBOL CANLI YAYIN", zh: "足球比赛直播",
-    ja: "無料ライブ配信",
-    ko: "무료 라이브 스트림",
-    vi: "Phát trực tiếp miễn phí",
+    jp: "無料ライブ配信",
+    kr: "무료 라이브 스트림",
+    vn: "Phát trực tiếp miễn phí",
     he: "שידור חי בחינם",
     th: "สตรีมสดฟรี"
   },
@@ -705,9 +710,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "REGISTE-SE E ASSISTA AGORA!", ro: "ÎNREGISTREAZĂ-TE ȘI VEZI ACUM!", ru: "ЗАПИШИСЬ И СМОТРИ СЕЙЧАС!",
     sk: "ZAREGISTRUJTE SA A SLEDUJTE!", sl: "REGISTRIRAJ SE IN GLEJ ZDAJ!", sr: "РЕГИСТРУЈ СЕ И ГЛЕДАЈ ОДМАХ!",
     sv: "REGISTRERA DIG & SE NU!", tr: "KAYDOL VE ŞİMDİ İZLE!", zh: "立即注册观看！",
-    ja: "今すぐ無料登録",
-    ko: "지금 무료 계정 등록",
-    vi: "Đăng ký tài khoản miễn phí ngay",
+    jp: "今すぐ無料登録",
+    kr: "지금 무료 계정 등록",
+    vn: "Đăng ký tài khoản miễn phí ngay",
     he: "הרשם לחשבון חינם עכשיו",
     th: "สมัครสมาชิกฟรีตอนนี้"
   },
@@ -722,9 +727,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Assistir ao Vivo", ro: "Vizionează Live", ru: "Смотреть онлайн",
     sk: "Sledovať Naživo", sl: "Glej v Živo", sr: "Гледај уживо",
     sv: "Se Live", tr: "Canlı İzle", zh: "观看直播",
-    ja: "ライブ視聴",
-    ko: "라이브 시청",
-    vi: "Xem trực tiếp",
+    jp: "ライブ視聴",
+    kr: "라이브 시청",
+    vn: "Xem trực tiếp",
     he: "צפה בשידור חי",
     th: "รับชมการถ่ายทอดสด"
   },
@@ -739,9 +744,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Bloqueador de Anúncios Detetado", ro: "Detector de reclame blocat", ru: "Обнаружен блокировщик рекламы",
     sk: "Detekovaný blokátor reklám", sl: "Zaznan zaviralec oglasov", sr: "Откривен блокатор огласа",
     sv: "Annonsblockerare upptäckt", tr: "Reklam Engelleyici Algılandı", zh: "检测到广告拦截器",
-    ja: "広告ブロッカーが検出されました",
-    ko: "광고 차단기가 감지되었습니다",
-    vi: "Phát hiện trình chặn quảng cáo",
+    jp: "広告ブロッカーが検出されました",
+    kr: "광고 차단기가 감지되었습니다",
+    vn: "Phát hiện trình chặn quảng cáo",
     he: "זוהه חוסם פרסומות",
     th: "ตรวจพบเครื่องมือบล็อกโฆษณา"
   },
@@ -756,9 +761,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Desbloqueie todas as transmissões HD de alta velocidade abaixo", ro: "Deblochează toate transmisiunile HD de mare viteză de mai jos", ru: "Разблокируйте все скоростные HD трансляции ниже",
     sk: "Odomknite všetky vysokorýchlostné HD streamy nižšie", sl: "Odkleni vse hitre HD prenose spodaj", sr: "Откључај све брзе ХД преносе испод",
     sv: "Lås upp alla snabba HD-strömmar nedan", tr: "Aşağıdaki tüm yüksek hızlı HD yayınları açın", zh: "解锁下方所有高速高清直播",
-    ja: "配信をスムーズに読み込むために、広告ブロッカーを無効にしてください。",
-    ko: "스트림을 원활하게 로드하려면 광고 차단기를 비활성화하십시오.",
-    vi: "Vui lòng tắt trình chặn quảng cáo để tải luồng mượt mà.",
+    jp: "配信をスムーズに読み込むために、広告ブロッカーを無効にしてください。",
+    kr: "스트림을 원활하게 로드하려면 광고 차단기를 비활성화하십시오.",
+    vn: "Vui lòng tắt trình chặn quảng cáo để tải luồng mượt mà.",
     he: "אנא נטרל את חוסם הפרסומות כדי לטעון את השידור בצורה חלקה.",
     th: "โปรดปิดการใช้งานเครื่องมือบล็อกโฆษณาเพื่อโหลดสตรีมอย่างราบรื่น"
   },
@@ -773,9 +778,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "DESBLOQUEAR HD", ro: "DEBLOCHEAZĂ HD", ru: "РАЗБЛОКИРОВАТЬ HD",
     sk: "ODOMKNÚŤ HD", sl: "ODKLENI HD", sr: "ОТКЉУЧАЈ ХД",
     sv: "LÅS UPP HD", tr: "HD YAYINI AÇ", zh: "解锁高清",
-    ja: "HD画質とリアルタイム実況をアンロック",
-    ko: "HD 스트리밍 및 실시간 해설 잠금 해제",
-    vi: "Mở khóa luồng HD & Bình luận trực tiếp",
+    jp: "HD画質とリアルタイム実況をアンロック",
+    kr: "HD 스트리밍 및 실시간 해설 잠금 해제",
+    vn: "Mở khóa luồng HD & Bình luận trực tiếp",
     he: "פתיחת שידור HD ופרשנות בזמן אמת",
     th: "ปลดล็อกสตรีม HD และผู้บรรยายสด"
   },
@@ -790,9 +795,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Streaming de Alta Qualidade", ro: "Transmisie de înaltă calitate", ru: "Высокое качество трансляции",
     sk: "Vysokokvalitný stream", sl: "Visokokakovosten prenos", sr: "Пренос високе квалитете",
     sv: "Streaming av hög kvalitet", tr: "Yüksek Kaliteli Yayın", zh: "高质量视频流",
-    ja: "バッファリングなしの超高速1080p画質",
-    ko: "버퍼링이 없는 초고속 1080p 스트리밍",
-    vi: "Luồng 1080p cực nhanh không giật lag",
+    jp: "バッファリングなしの超高速1080p画質",
+    kr: "버퍼링이 없는 초고속 1080p 스트리밍",
+    vn: "Luồng 1080p cực nhanh không giật lag",
     he: "שידור 1080p מהיר במיוחד ללא השהיות",
     th: "สตรีมมิ่ง 1080p ความเร็วสูงพิเศษไม่มีสะดุด"
   },
@@ -807,9 +812,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Assista Sem Limites", ro: "Vizionează fără limite", ru: "Смотри без ограничений",
     sk: "Sledujte bez limitov", sl: "Glej brez omejitev", sr: "Гледај без ограничења",
     sv: "Se utan begränsningar", tr: "Sınırsız İzleme", zh: "无限制观看",
-    ja: "英語・ローカル言語のライブ解説付き",
-    ko: "영어 및 지역 언어 라이브 해설",
-    vi: "Bình luận trực tiếp bằng tiếng Anh & Ngôn ngữ địa phương",
+    jp: "英語・ローカル言語のライブ解説付き",
+    kr: "영어 및 지역 언어 라이브 해설",
+    vn: "Bình luận trực tiếp bằng tiếng Anh & Ngôn ngữ địa phương",
     he: "פרשנות חיה באנגלית ובשפות מקומיות",
     th: "คำบรรยายสดภาษาอังกฤษและภาษาท้องถิ่น"
   },
@@ -824,9 +829,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Sem Anúncios, Acesso 100% Grátis", ro: "Fără reclame, acces 100% gratuit", ru: "Без рекламы, 100% бесплатный доступ",
     sk: "Bez reklám, 100% bezplatný prístup", sl: "Brez oglasov, 100-odstotno brezplačen dostop", sr: "Без реклама, 100% бесплатан приступ",
     sv: "Inga annonser, 100 % gratis tillgång", tr: "Reklamsız, %100 Ücretsiz Erişim", zh: "无广告，100%免费访问",
-    ja: "PC、スマートフォン、タブレット、スマートTVに対応",
-    ko: "PC, 모바일, 태블릿 및 스마트 TV 지원",
-    vi: "Hỗ trợ PC, di động, máy tính bảng & Smart TV",
+    jp: "PC、スマートフォン、タブレット、スマートTVに対応",
+    kr: "PC, 모바일, 태블릿 및 스마트 TV 지원",
+    vn: "Hỗ trợ PC, di động, máy tính bảng & Smart TV",
     he: "תמיכה במחשב, נייד, טאבלט וטלוויזיה חכמה",
     th: "รองรับพีซี, มือถือ, แท็บเล็ต และสมาร์ททีวี"
   },
@@ -841,9 +846,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Assista em qualquer dispositivo", ro: "Vizionează pe orice dispozitiv", ru: "Смотри на любом устройстве",
     sk: "Sledujte na akomkoľvek zariadení", sl: "Glej na katerikoli napravi", sr: "Гледај на било ком уређају",
     sv: "Se på valfri enhet", tr: "İstediğiniz cihazdan izleyin", zh: "在任何设备上观看",
-    ja: "完全に無料の生涯アクセス",
-    ko: "평생 100% 무료 액세스",
-    vi: "Truy cập trọn đời miễn phí 100%",
+    jp: "完全に無料の生涯アクセス",
+    kr: "평생 100% 무료 액세스",
+    vn: "Truy cập trọn đời miễn phí 100%",
     he: "גישה לכל החיים 100% בחינם",
     th: "เข้าใช้งานฟรี 100% ตลอดชีพ"
   },
@@ -858,9 +863,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Já tem uma conta?", ro: "Ai deja cont?", ru: "Уже есть аккаунт?",
     sk: "Už máte účet?", sl: "Že imate račun?", sr: "Већ imate nalog?",
     sv: "Har du redan ett konto?", tr: "Zaten üye misiniz?", zh: "已有账号？",
-    ja: "すでにアカウントをお持ちですか？",
-    ko: "이미 계정이 있으신가요?",
-    vi: "Đã có tài khoản?",
+    jp: "すでにアカウントをお持ちですか？",
+    kr: "이미 계정이 있으신가요?",
+    vn: "Đã có tài khoản?",
     he: "כבר יש לך חשבון?",
     th: "มีบัญชีอยู่แล้ว?"
   },
@@ -875,9 +880,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Iniciar Sessão", ro: "Autentificare", ru: "Войти",
     sk: "Prihlásiť sa", sl: "Prijava", sr: "Пријава",
     sv: "Logga in", tr: "Giriş Yap", zh: "登录",
-    ja: "ログイン",
-    ko: "로그인",
-    vi: "Đăng nhập",
+    jp: "ログイン",
+    kr: "로그인",
+    vn: "Đăng nhập",
     he: "התחבר",
     th: "เข้าสู่ระบบ"
   },
@@ -892,9 +897,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "A carregar detalhes...", ro: "Se încarcă detaliile...", ru: "Загрузка...",
     sk: "Načítavanie podrobností...", sl: "Nalaganje podrobnosti...", sr: "Учитавање...",
     sv: "Läs in detaljer...", tr: "Detaylar yükleniyor...", zh: "加载中...",
-    ja: "読み込み中...",
-    ko: "로딩 중...",
-    vi: "Đang tải...",
+    jp: "読み込み中...",
+    kr: "로딩 중...",
+    vn: "Đang tải...",
     he: "טוען...",
     th: "กำลังโหลด..."
   },
@@ -909,9 +914,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Jogo não encontrado", ro: "Meciul nu a fost găsit", ru: "Матч не найден",
     sk: "Zápas nebol nájdený", sl: "Tekma ni bila najdena", sr: "Утакмица није пронађена",
     sv: "Matchen kunde inte hittas", tr: "Maç bulunamadı", zh: "未找到比赛",
-    ja: "ページが見つかりません",
-    ko: "페이지를 찾을 수 없습니다",
-    vi: "Không tìm thấy trang",
+    jp: "ページが見つかりません",
+    kr: "페이지를 찾을 수 없습니다",
+    vn: "Không tìm thấy trang",
     he: "הדף לא נמצא",
     th: "ไม่พบหน้าเว็บ"
   },
@@ -926,9 +931,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Voltar ao Painel", ro: "Înapoi la Panou", ru: "Вернуться на панель",
     sk: "Späť na nástenku", sl: "Vrni se na nadzorno ploščo", sr: "Врати се на контролну таблу",
     sv: "Gå tillbaka till översikten", tr: "Panoya Dön", zh: "返回控制台",
-    ja: "ダッシュボードに戻る",
-    ko: "대시보드로 돌아가기",
-    vi: "Quay lại bảng điều khiển",
+    jp: "ダッシュボードに戻る",
+    kr: "대시보드로 돌아가기",
+    vn: "Quay lại bảng điều khiển",
     he: "חזרה ללוח הבקרה",
     th: "กลับไปที่แดชบอร์ด"
   },
@@ -943,105 +948,105 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     "pt-pt": "Selecionar Idioma", ro: "Selectează limba", ru: "Выбрать язык",
     sk: "Vybrať jazyk", sl: "Izberite jezik", sr: "Изабери језик",
     sv: "Välj språk", tr: "Dil Seçin", zh: "选择语言",
-    ja: "言語を選択",
-    ko: "언어 선택",
-    vi: "Chọn ngôn ngữ",
+    jp: "言語を選択",
+    kr: "언어 선택",
+    vn: "Chọn ngôn ngữ",
     he: "בחר שפה",
     th: "เลือกภาษา"
   },
   round_32: {
     en: "Round of 32", "en-us": "Round of 32", ar: "دور الـ 32", az: "Son 32 turu", bn: "রাউন্ড অব ৩২", cs: "Šestnáctifinále", da: "16-delsfinaler", de: "Sechzehntelfinale", el: "Φάση των 32", es: "Dieciseisavos de final", "es-la": "Dieciseisavos de final", fr: "Seizièmes de finale", hi: "32 का दौर", hr: "Šesnaestina finala", hu: "Legjobb 32", id: "Babak 32 Besar", it: "Sedicesimi di finale", nl: "Zestiende finales", no: "16-delsfinaler", pl: "1/16 finału", pt: "Dezesseis-avos de final", "pt-pt": "Dezasseis-avos de final", ro: "Șaisprezecimi de finală", ru: "1/16 финала", sk: "Šestnásťfinále", sl: "Šestnajstina finala", sr: "Шеснаестина финала", sv: "Sextondelsfinal", tr: "Son 32 Turu", zh: "1/16决赛",
-    ja: "ラウンド32",
-    ko: "32강전",
-    vi: "Vòng 32 đội",
+    jp: "ラウンド32",
+    kr: "32강전",
+    vn: "Vòng 32 đội",
     he: "סיבוב ה-32",
     th: "รอบ 32 ทีม"
   },
   round_16: {
     en: "Round of 16", "en-us": "Round of 16", ar: "دور الـ 16", az: "Son 16 turu", bn: "রাউন্ড অব ১৬", cs: "Osmifinále", da: "Ottendedelsfinaler", de: "Achtelfinale", el: "Φάση των 16", es: "Octavos de final", "es-la": "Octavos de final", fr: "Huitièmes de finale", hi: "16 का दौर", hr: "Osmina finala", hu: "Nyolcaddöntő", id: "Babak 16 Besar", it: "Ottavi di finale", nl: "Achtste finales", no: "Åttendedelsfinaler", pl: "1/8 finału", pt: "Oitavas de final", "pt-pt": "Oitavas de final", ro: "Optimi de finală", ru: "1/8 финала", sk: "Osemfinále", sl: "Osmina finala", sr: "Осмина финала", sv: "Åttondelsfinal", tr: "Son 16 Turu", zh: "1/8决赛",
-    ja: "ラウンド16",
-    ko: "16강전",
-    vi: "Vòng 16 đội",
+    jp: "ラウンド16",
+    kr: "16강전",
+    vn: "Vòng 16 đội",
     he: "שמינית הגמר",
     th: "รอบ 16 ทีม"
   },
   quarter_finals: {
     en: "Quarter Finals", "en-us": "Quarter Finals", ar: "ربع النهائي", az: "Dörddəbir final", bn: "কোয়ার্টার ফাইনাল", cs: "Čtvrtfinále", da: "Kvartfinaler", de: "Viertelfinale", el: "Προημιτελικοί", es: "Cuartos de final", "es-la": "Cuartos de final", fr: "Quarts de finale", hi: "क्वार्टर फाइनल", hr: "Četvrtfinale", hu: "Negyeddöntő", id: "Perempat Final", it: "Quarti di finale", nl: "Kwartfinales", no: "Kvartfinaler", pl: "Ćwierćfinały", pt: "Quartas de final", "pt-pt": "Quartos de final", ro: "Sferturi de finală", ru: "Четвертьфиналы", sk: "Štvrťfinále", sl: "Četrtfinale", sr: "Четвртфинале", sv: "Kvartsfinal", tr: "Çeyrek Finaller", zh: "1/4决赛",
-    ja: "準々決勝",
-    ko: "8강전",
-    vi: "Tứ kết",
+    jp: "準々決勝",
+    kr: "8강전",
+    vn: "Tứ kết",
     he: "רבע הגמר",
     th: "รอบก่อนรองชนะเลิศ"
   },
   semi_finals: {
     en: "Semi Finals", "en-us": "Semi Finals", ar: "نصف النهائي", az: "Yarımfinal", bn: "সেমিফাইনাল", cs: "Semifinále", da: "Semifinaler", de: "Halbfinale", el: "Ημιτελικοί", es: "Semifinales", "es-la": "Semifinales", fr: "Demi-finales", hi: "সেমিফাইনাল", hr: "Polufinale", hu: "Elődöntő", id: "Semifinal", it: "Semifinali", nl: "Halve finales", no: "Semifinaler", pl: "Półfinały", pt: "Semifinais", "pt-pt": "Meias-finais", ro: "Semifinale", ru: "Полуфиналы", sk: "Semifinále", sl: "Polfinale", sr: "Полуфинале", sv: "Semifinal", tr: "Yarı Finaller", zh: "半决赛",
-    ja: "準決勝",
-    ko: "4강전",
-    vi: "Bán kết",
+    jp: "準決勝",
+    kr: "4강전",
+    vn: "Bán kết",
     he: "חצי הגמר",
     th: "รอบรองชนะเลิศ"
   },
   third_place: {
     en: "3rd Place", "en-us": "3rd Place", ar: "المركز الثالث", az: "Üçüncü yer", bn: "তৃতীয় স্থান", cs: "O 3. místo", da: "Bronzekamp", de: "Spiel um Platz 3", el: "Μικρός Τελικός", es: "Tercer puesto", "es-la": "Tercer puesto", fr: "Match 3e place", hi: "तीसरा स्थान", hr: "Za 3. mjesto", hu: "Bronzmérkőzés", id: "Perebutan Tempat Ketiga", it: "Finale 3° posto", nl: "Troostfinale", no: "Bronsefinale", pl: "Mecz o 3. miejsce", pt: "Disputa do 3º lugar", "pt-pt": "Jogo do 3º lugar", ro: "Finala mică", ru: "Матч за 3-е место", sk: "O 3. miesto", sl: "Za 3. mesto", sr: "За 3. место", sv: "Bronsmatch", tr: "Üçüncülük Maçı", zh: "三四名决赛",
-    ja: "3位決定戦",
-    ko: "3위 결정전",
-    vi: "Tranh hạng ba",
+    jp: "3位決定戦",
+    kr: "3위 결정전",
+    vn: "Tranh hạng ba",
     he: "המשחק על המקום השלישי",
     th: "นัดชิงอันดับสาม"
   },
   final: {
     en: "Final", "en-us": "Final", ar: "النهائي", az: "Final", bn: "ফাইনাল", cs: "Finále", da: "Finale", de: "Finale", el: "Τελικός", es: "Final", "es-la": "Final", fr: "Finale", hi: "फाइनल", hr: "Finale", hu: "Döntő", id: "Final", it: "Finale", nl: "Finale", no: "Finale", pl: "Finał", pt: "Final", "pt-pt": "Final", ro: "Finală", ru: "Финал", sk: "Finále", sl: "Finale", sr: "Финале", sv: "Final", tr: "Final", zh: "决赛",
-    ja: "決勝",
-    ko: "결승전",
-    vi: "Chung kết",
+    jp: "決勝",
+    kr: "결승전",
+    vn: "Chung kết",
     he: "הגמר",
     th: "นัดชิงชนะเลิศ"
   },
   group: {
     en: "Group", "en-us": "Group", ar: "المجموعة", az: "Qrup", bn: "গ্রুপ", cs: "Skupina", da: "Gruppe", de: "Gruppe", el: "Όμιλος", es: "Grupo", "es-la": "Grupo", fr: "Groupe", hi: "समूह", hr: "Skupina", hu: "Csoport", id: "Grup", it: "Gruppo", nl: "Groep", no: "Gruppe", pl: "Grupa", pt: "Grupo", "pt-pt": "Grupo", ro: "Grupa", ru: "Группа", sk: "Skupina", sl: "Skupina", sr: "Група", sv: "Grupp", tr: "Grup", zh: "分组",
-    ja: "グループ",
-    ko: "조",
-    vi: "Bảng",
+    jp: "グループ",
+    kr: "조",
+    vn: "Bảng",
     he: "בית",
     th: "กลุ่ม"
   },
   matchday: {
     en: "Matchday", "en-us": "Matchday", ar: "يوم المباراة", az: "Oyun günü", bn: "ম্যাচডে", cs: "Hrací den", da: "Spilledag", de: "Spieltag", el: "Αγωνιστική", es: "Jornada", "es-la": "Jornada", fr: "Journée", hi: "मैच का दिन", hr: "Kolo", hu: "Forduló", id: "Hari Pertandingan", it: "Giornata", nl: "Speeldag", no: "Spilledag", pl: "Kolejka", pt: "Rodada", "pt-pt": "Jornada", ro: "Etapă", ru: "Игровой день", sk: "Hrací deň", sl: "Igralni dan", sr: "Коло", sv: "Spelomgång", tr: "Maç Günü", zh: "比赛日",
-    ja: "マッチデイ",
-    ko: "경기일",
-    vi: "Ngày thi đấu",
+    jp: "マッチデイ",
+    kr: "경기일",
+    vn: "Ngày thi đấu",
     he: "יום משחק",
     th: "วันแข่งขัน"
   },
   no_upcoming_matches: {
     en: "No upcoming matches scheduled.", "en-us": "No upcoming matches scheduled.", ar: "لا توجد مباريات قادمة مجدولة.", az: "Planlaşdırılmış növbəti oyun yoxdur.", bn: "কোন আসন্ন ম্যাচ নির্ধারিত নেই।", cs: "Nejsou naplánovány žádné nadcházející zápasy.", da: "Ingen kommende kampe planlagt.", de: "Keine kommenden Spiele geplant.", el: "Δεν υπάρχουν προγραμματισμένοι προσεχείς αγώνες.", es: "No hay partidos próximos programados.", "es-la": "No hay partidos próximos programados.", fr: "Aucun match à venir programmé.", hi: "कोई आगामी मैच निर्धारित नहीं है।", hr: "Nema zakazanih predstojećih utakmica.", hu: "Nincsenek közelgő mérkőzések.", id: "Tidak ada pertandingan mendatang yang dijadwalkan.", it: "Nessuna partita in programma.", nl: "Geen aankomende wedstrijden gepland.", no: "Ingen kommende kamper planlagt.", pl: "Brak zaplanowanych nadchodzących meczów.", pt: "Nenhum jogo próximo programado.", "pt-pt": "Nenhum jogo próximo programado.", ro: "Nu există meciuri programate.", ru: "Нет запланированных предстоящих матчей.", sk: "Nie sú naplánované žiadne nadchádzajúce zápasy.", sl: "Ni načrtovanih prihodnjih tekem.", sr: "Нема заказаних предстојећих утакмица.", sv: "Inga kommande matcher schemalagda.", tr: "Planlanmış gelecek maç yok.", zh: "没有计划中的即将进行的比赛。",
-    ja: "予定されている試合はありません",
-    ko: "예정된 경기가 없습니다",
-    vi: "Không có trận đấu sắp tới",
+    jp: "予定されている試合はありません",
+    kr: "예정된 경기가 없습니다",
+    vn: "Không có trận đấu sắp tới",
     he: "אין משחקים קרובים",
     th: "ไม่มีการแข่งขันที่กำลังจะมาถึง"
   },
   no_played_matches: {
     en: "No played matches recorded.", "en-us": "No played matches recorded.", ar: "لم تسجل مباريات ملعوبة.", az: "Qeydə alınmış oyun yoxdur.", bn: "কোন খেলার রেকর্ড নেই।", cs: "Nebyly zaznamenány žádné odehrané zápasy.", da: "Ingen spillede kampe registreret.", de: "Keine gespielten Spiele aufgezeichnet.", el: "Δεν έχουν καταγραφεί διεξαχθέντες αγώνες.", es: "No se registran partidos jugados.", "es-la": "No se registran partidos jugados.", fr: "Aucun match joué enregistré.", hi: "कोई खेले गए मैच रिकॉर्ड नहीं किए गए।", hr: "Nema zabilježenih odigranih utakmica.", hu: "Nincsenek lejátszott mérkőzések.", id: "Tidak ada catatan pertandingan yang dimainkan.", it: "Nessuna partita giocata registrata.", nl: "Geen gespeelde wedstrijden geregistreerd.", no: "Ingen spilte kamper registrert.", pl: "Brak rozegranych meczów.", pt: "Nenhum jogo realizado registrado.", "pt-pt": "Nenhum jogo realizado registado.", ro: "Nu există meciuri jucate înregistrate.", ru: "Нет записей о сыгранных матчах.", sk: "Neboli zaznamenané žiadne odohrané zápasy.", sl: "Ni zabeleženih odigranih tekem.", sr: "Нема забележених одиграних утакмица.", sv: "Inga spelade matcher registrerade.", tr: "Kaydedilmiş oynanmış maç yok.", zh: "没有已赛场次记录।",
-    ja: "終了した試合はありません",
-    ko: "진행된 경기가 없습니다",
-    vi: "Không có trận đấu đã chơi",
+    jp: "終了した試合はありません",
+    kr: "진행된 경기가 없습니다",
+    vn: "Không có trận đấu đã chơi",
     he: "אין משหקים ששוחקו",
     th: "ไม่มีการแข่งขันที่เล่นไปแล้ว"
   },
   no_matches: {
     en: "No matches found matching your filters.", "en-us": "No matches found matching your filters.", ar: "لم يتم العثور على مباريات تطابق التصفية.", az: "Filtrinizə uyğun oyun tapılmadı.", bn: "কোন ম্যাচ পাওয়া যায়নি।", cs: "Nebyly nalezeny žádné zápasy odpovídající vašim filtrům.", da: "Ingen kampe fundet, der matcher dine filtre.", de: "Keine Spiele gefunden, die Ihren Filtern entsprechen.", el: "Δεν βρέθηκαν αγώνες που να ταιριάζουν με τα φίλτρα σας.", es: "No se encontraron partidos que coincidan con sus filtros.", "es-la": "No se encontraron partidos que coincidan con sus filtros.", fr: "Aucun match trouvé correspondant à vos filtres.", hi: "आपके फ़िल्टर से मेल खाने वाले कोई मैच नहीं मिले।", hr: "Nije pronađena nijedna utakmica koja odgovara vašim filtrima.", hu: "Nem található a szűrésnek megfelelő mérkőzés.", id: "Tidak ada pertandingan yang cocok dengan filter Anda.", it: "Nessuna partita corrisponde ai filtri selezionati.", nl: "Geen wedstrijden gevonden die aan de filters voldoen.", no: "Ingen kamper funnet som passer til filtrene.", pl: "Nie znaleziono meczów pasujących do filtrów.", pt: "Nenhum jogo encontrado correspondente aos seus filtros.", "pt-pt": "Nenhum jogo encontrado correspondente aos seus filtros.", ro: "Nu s-au găsit meciuri care să corespundă filtrelor tale.", ru: "Матчей с такими фильтрами не найдено.", sk: "Neboli nájdené žiadne zápasy zodvedajúce vašim filtrom.", sl: "Ni tekem, ki bi ustrezale vašim filtrom.", sr: "Није пронађена ниједна утакмица која одговара вашим филтрима.", sv: "Inga matcher hittades som matchar dina filter.", tr: "Filtrelerinize uygun maç bulunamadı.", zh: "未找到符合筛选条件的比赛。",
-    ja: "一致する試合はありません",
-    ko: "일치하는 경기가 없습니다",
-    vi: "Không tìm thấy trận đấu",
+    jp: "一致する試合はありません",
+    kr: "일치하는 경기가 없습니다",
+    vn: "Không tìm thấy trận đấu",
     he: "לא נמצאו משחקים",
     th: "ไม่พบการแข่งขัน"
   },
   no_teams: {
     en: "No teams found.", "en-us": "No teams found.", ar: "لم يتم العثور على فرق.", az: "Komanda tapılmadı.", bn: "কোন দল পাওয়া যায়নি।", cs: "Nebyly nalezeny žádné týmy.", da: "Ingen hold fundet.", de: "Keine teams gefunden.", el: "Δεν βρέθηκαν ομάδες.", es: "No se encontraron equipos.", "es-la": "No se encontraron equipos.", fr: "Aucune équipe trouvée.", hi: "कोई टीम नहीं मिली।", hr: "Nisu pronađene reprezentacije.", hu: "Nem találhatók csapatok.", id: "Tidak ada tim yang ditemukan.", it: "Nessuna squadra trovata.", nl: "Geen teams gevonden.", no: "Ingen lag funnet.", pl: "Nie znaleziono drużyn.", pt: "Nenhuma equipe encontrada.", "pt-pt": "Nenhuma equipa encontrada.", ro: "Nu s-au găsit echipe.", ru: "Команд не найдено.", sk: "Neboli nájdené žiadne tímy.", sl: "Ni najdenih ekip.", sr: "Нису пронађене репрезентације.", sv: "Inga lag hittades.", tr: "Takım bulunamadı.", zh: "未找到球队।",
-    ja: "チームが見つかりません",
-    ko: "팀이 없습니다",
-    vi: "Không có đội bóng",
+    jp: "チームが見つかりません",
+    kr: "팀이 없습니다",
+    vn: "Không có đội bóng",
     he: "לא נמצאו נבחרות",
     th: "ไม่พบทีม"
   },
@@ -1076,9 +1081,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     sv: "Om matchen",
     tr: "Maç hakkında",
     zh: "关于比赛",
-    ja: "試合について",
-    ko: "경기에 대하여",
-    vi: "Thông tin trận đấu",
+    jp: "試合について",
+    kr: "경기에 대하여",
+    vn: "Thông tin trận đấu",
     he: "על המשחק",
     th: "เกี่ยวกับการแข่งขัน"
   },
@@ -1113,11 +1118,11 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     sv: "{homeName} ställs mot {awayName} den {date} kl. {time} UTC på {venue}. Matchen är en del av FIFA VM, Grupp {group}.",
     tr: "{homeName} ile {awayName}, {date} tarihinde saat {time} UTC'de {venue} stadyumunda karşı karşıya geliyor. Bu maç, FIFA Dünya Kupası Grup {group} mücadelesidir.",
     zh: "{homeName} 将于 {date} {time} UTC 在 {venue} 体育场与 {awayName} 进行对决。本场比赛是 2026 FIFA 世界杯 {group} 组的一部分。",
-    ja: "対戦成績と予測",
-    ko: "상대 전적 및 예측",
-    vi: "Lịch sử đối đầu & Dự đoán",
-    he: "ראש בראש ותחזית",
-    th: "สถิติการพบกันและการทำนายผล"
+    jp: "{homeName}は{date}の{time} UTCに{venue}で{awayName}と対戦します。この試合はFIFAワールドカップのグループ{group}の一部です。",
+    kr: "{homeName}은(는) {date} {time} UTC에 {venue}에서 {awayName}와(과) 맞대결을 펼칩니다. 이 경기는 FIFA 월드컵 그룹 {group}의 일부입니다.",
+    vn: "{homeName} sẽ đối đầu với {awayName} bắt đầu vào lúc {time} UTC ngày {date} tại {venue}. Trận đấu là một phần của FIFA World Cup, Bảng {group}.",
+    he: "נבחרות {homeName} ו-{awayName} ייפגשו ראש בראש ב-{date} בשעה {time} UTC באצטדיון {venue}. המשחק הוא חלק מגביע העולם של פיפ\"א, בית {group}.",
+    th: "{homeName} จะพบกับ {awayName} เริ่มแข่งขันในวันที่ {date} เวลา {time} UTC ณ สนาม {venue} การแข่งขันนี้เป็นส่วนหนึ่งของฟีฟ่าเวิลด์คัพ กลุ่ม {group}"
   },
   h2h_results_intro: {
     en: "On FIFAonScreen you can find all previous {homeName} vs {awayName} results sorted by their H2H matches. FIFAonScreen also provides the best way to follow the live score of this game with various sports features. Therefore, you can:",
@@ -1150,10 +1155,11 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     sv: "På FIFAonScreen kan du hitta alla tidigare resultat för {homeName} vs {awayName} sorterade efter deras inbördes möten. FIFAonScreen ger också det bästa sättet att följa livescore för denna match med olika sportfunktioner. Därför kan du:",
     tr: "FIFAonScreen'de, H2H maçlarına göre sıralanmış tüm geçmiş {homeName} vs {awayName} sonuçlarını bulabilirsiniz. FIFAonScreen ayrıca çeşitli spor özellikleriyle bu maçın canlı skorunu takip etmeniz için en iyi yolu sunar. Bu sayede şunları yapabilirsiniz:",
     zh: "在 FIFAonScreen 上，您可以找到按历史交锋记录排序的 {homeName} 对阵 {awayName} 的所有历史交锋结果。FIFAonScreen 还提供多种体育功能，是关注本场比赛实时比分的最佳方式。因此，您可以：",
-    ja: "過去の対戦における勝利と最近の調子の比較。",
-    vi: "So sánh lịch sử đối đầu và phong độ gần đây.",
-    he: "השוואת ניצחונות בעבר וכושר נוכhi.",
-    th: "เปรียบเทียบประวัติการเจอกันและฟอร์มล่าสุด"
+    jp: "FIFAonScreenでは、過去の対戦による{homeName}対{awayName}のすべての結果をH2Hマッチごとに並べて確認できます。また、FIFAonScreenは様々なスポーツ機能を使ってこの試合のライブスコアを追うための最適な方法を提供しています。したがって、次のことが可能です：",
+    kr: "FIFAonScreen에서는 H2H 매치로 정렬된 {homeName} 대 {awayName}의 모든 이전 경기 결과를 확인할 수 있습니다. 또한 FIFAonScreen은 다양한 스포츠 기능과 함께 이 경기의 라이브 스코어를 팔로우할 수 있는 가장 좋은 방법을 제공합니다. 따라서 다음과 같은 서비스를 이용할 수 있습니다:",
+    vn: "Trên FIFAonScreen, bạn có thể tìm thấy tất cả kết quả đối đầu trước đây giữa {homeName} và {awayName} được sắp xếp theo các trận đấu H2H của họ. FIFAonScreen cũng cung cấp cách tốt nhất để theo dõi tỷ số trực tiếp của trận đấu này với nhiều tính năng thể thao khác nhau. Do đó, bạn có thể:",
+    he: "ב-FIFAonScreen תוכל למצוא את כל התוצאות הקודמות של {homeName} נגד {awayName} ממוינות לפי משחקי ראש בראש שלהם. FIFAonScreen מספק גם את הדרך הטובה ביותר לעקוב אחר התוצאה החיה של המשחק הזה עם תכונות ספורט שונות. לכן, אתה יכול:",
+    th: "บน FIFAonScreen คุณสามารถค้นหาผลการแข่งขันย้อนหลังทั้งหมดระหว่าง {homeName} กับ {awayName} ที่จัดเรียงตามการพบกันของพวกเขา (H2H) นอกจากนี้ FIFAonScreen ยังเป็นช่องทางที่ดีที่สุดในการติดตามผลการแข่งขันสดของเกมนี้พร้อมฟีเจอร์กีฬาที่หลากหลาย ดังนั้นคุณสามารถ:"
   },
   h2h_feature_1: {
     en: "Find out who scored in a live match",
@@ -1186,9 +1192,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     sv: "Ta reda på vem som gjorde mål i en livematch",
     tr: "Canlı maçta kimin gol attığını öğrenin",
     zh: "了解谁 في 实时比赛中进球",
-    ja: "対戦結果統計と勝率",
-    ko: "이전 경기 기록 및 통계 데이터",
-    vi: "Lịch sử đối đầu & Số liệu thống kê",
+    jp: "対戦結果統計と勝率",
+    kr: "이전 경기 기록 및 통계 데이터",
+    vn: "Lịch sử đối đầu & Số liệu thống kê",
     he: "נתונים סטטיסטיים של מפגשים קודמים",
     th: "ประวัติการพบกันและข้อมูลสถิติ"
   },
@@ -1223,9 +1229,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     sv: "Få realtidsinformation om vilket lag som dominerar matchen med hjälp av Attack Momentum",
     tr: "Hücum Momentumu (Attack Momentum) özelliğini kullanarak hangi takımın maçı domine ettiği hakkında gerçek zamanlı bilgi edinin",
     zh: "利用进攻势头 (Attack Momentum) 获取哪支球队主导比赛的的实时信息",
-    ja: "最新のゴール得点率と守備力",
-    ko: "최근 득점 형태 및 수비 능력",
-    vi: "Phong độ ghi bàn & Phòng ngự gần đây",
+    jp: "最新のゴール得点率と守備力",
+    kr: "최근 득점 형태 및 수비 능력",
+    vn: "Phong độ ghi bàn & Phòng ngự gần đây",
     he: "מגמות הבקעה וחוזק הגנתי לאחרונה",
     th: "สถิติการทำประตูและเกมรับล่าสุด"
   },
@@ -1260,9 +1266,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     sv: "Följ alla hemma- och bortamatcher för varje lag i FIFA VM, Grupp {group}",
     tr: "FIFA Dünya Kupası Grup {group}'taki her takımın tüm iç saha ve dış saha maçlarını takip edin",
     zh: "追踪每支球队在 2026 FIFA 世界杯 {group} 组中的所有主客场比赛",
-    ja: "キープレーヤーの負傷情報と出場予定",
-    ko: "주요 선수 부상 정보 및 라인업 가능성",
-    vi: "Tình hình chấn thương & Đội hình dự kiến",
+    jp: "キープレーヤーの負傷情報と出場予定",
+    kr: "주요 선수 부상 정보 및 라인업 가능성",
+    vn: "Tình hình chấn thương & Đội hình dự kiến",
     he: "עדכוני פציעות שחקני מפתח והרכבים משוערים",
     th: "รายงานการบาดเจ็บของนักเตะคีย์แมนและรายชื่อตัวจริง"
   },
@@ -1297,9 +1303,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     sv: "Kolla in hur FIFAonScreen-communityn röstar om vilket lag som är mest troligt att vinna matchen.",
     tr: "FIFAonScreen topluluğunun bu maçı hangi takımın kazanma olasılığının daha yüksek olduğuna dair nasıl oy verdiğini inceleyin.",
     zh: "查看 FIFAonScreen 社区对哪支球队更有可能赢得本场比赛的投票结果",
-    ja: "公式AIアルゴリズムによる勝敗予測",
-    ko: "공식 AI 알고리즘 승률 시뮬레이션",
-    vi: "Thuật toán dự đoán tỷ lệ thắng AI chính thức",
+    jp: "公式AIアルゴリズムによる勝敗予測",
+    kr: "공식 AI 알고리즘 승률 시뮬레이션",
+    vn: "Thuật toán dự đoán tỷ lệ thắng AI chính thức",
     he: "אלגוריתם AI רשמי לחיזוי סיכויי ניצחון",
     th: "การคำนวณโอกาสชนะด้วย AI อัลกอริทึมอย่างเป็นทางการ"
   },
@@ -1334,11 +1340,11 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     sv: "Alla dessa funktioner kan hjälpa dig att göra en speltippning för {homeName} vs. {awayName}. Även om FIFAonScreen inte erbjuder direkt betting så ger det de bästa oddsen och visar dig vilka sajter som erbjuder live betting. Live U-TV-odds kan ses på FIFAonScreens fotboll-livescoreavdelning.",
     tr: "Tüm bu özellikler, {homeName} vs. {awayName} maçı tahminine karar vermenize yardımcı olabilir. FIFAonScreen doğrudan bahis sunmasa da en iyi oranları sağlar ve hangi sitelerin canlı bahis sunduğunu gösterir. Canlı U-TV oranları, FIFAonScreen'in futbol canlı skor bölümünden görüntülenebilir.",
     zh: "所有这些功能都有助于您做出对 {homeName} 对阵 {awayName} 比赛的预测。虽然 FIFAonScreen 不提供直接投注，但它提供了最佳赔率，并向您显示哪些网站提供实时投注。实时 U-TV 赔率可在 FIFAonScreen 的足球实时比分板块中查看。",
-    ja: "勝敗予測確率",
-    ko: "예측 확률",
-    vi: "Tỷ lệ dự đoán",
-    he: "סיכויי תחזית",
-    th: "โอกาสการชนะตามคำทำนาย"
+    jp: "これらの機能はすべて、{homeName}対{awayName}の試合予測を決めるのに役立ちます。FIFAonScreenは直接の賭けは提供していませんが、最高のオッズを提供し、どのサイトがライブベットを提供しているかを示します。ライブU-TVオッズはFIFAonScreenのサッカーライブスコアセクションで閲覧可能です。",
+    kr: "이 모든 기능은 {homeName} 대 {awayName} 경기 결과 예측에 도움을 줄 수 있습니다. FIFAonScreen은 직접적인 베팅을 제공하지 않지만, 최고의 배당률을 제공하고 라이브 베팅을 제공하는 사이트를 보여줍니다. 라이브 U-TV 배당률은 FIFAonScreen의 축구 라이브 스코어 섹션에서 확인하실 수 있습니다.",
+    vn: "Tất cả các tính năng này có thể giúp bạn đưa ra dự đoán về trận đấu giữa {homeName} và {awayName}. Mặc dù FIFAonScreen không cung cấp dịch vụ cá cược trực tiếp, nhưng nó cung cấp tỷ lệ cược tốt nhất và hiển thị cho bạn các trang web cung cấp cá cược trực tiếp. Tỷ lệ cược U-TV trực tiếp có thể xem trên phần tỷ số bóng đá trực tiếp của FIFAonScreen.",
+    he: "כל התכונות הלلو יכולות לעזור לך להחליט על תחזית המשחק בין {homeName} ל-{awayName}. למרות ש-FIFAonScreen אינו מציע הימורים ישירים, הוא מספק את היחס הטוב ביותר ומציע לך באילו אתרים ניתן להמר בשידור חי. יחסי הימורים חיים של U-TV זמינים לצפייה במדור תוצאות הכדורגל החיות של FIFAonScreen.",
+    th: "ฟีเจอร์ทั้งหมดเหล่านี้สามารถช่วยคุณในการตัดสินใจทำนายผลการแข่งขันระหว่าง {homeName} กับ {awayName} แม้ว่า FIFAonScreen จะไม่ได้เสนอการเดิมพันโดยตรง แต่เราก็ให้อัตราต่อรองที่ดีที่สุดและแสดงความเห็นว่าเว็บไซต์ใดบ้างที่มีการเดิมพันสด อัตราต่อรองสด U-TV สามารถดูได้ที่เซกชันผลบอลสดของ FIFAonScreen"
   },
   where_to_watch: {
     en: "Where to watch {homeName} vs. {awayName}? Under TV Channels section you can find the list of all channels that broadcast {homeName} – {awayName} live match.",
@@ -1371,11 +1377,11 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     sv: "Var kan man se {homeName} vs. {awayName}? Under TV-kanaler hittar du listan över alla kanaler som sänder {homeName} – {awayName} livematch.",
     tr: "{homeName} vs. {awayName} maçı nereden izlenir? TV Kanalları bölümünün altında {homeName} – {awayName} canlı maçını yayınlayan tüm kanalların listesini bulabilirsiniz.",
     zh: "在哪里观看 {homeName} 对阵 {awayName} 的比赛？在“电视频道”板块下，您可以找到广播 {homeName} – {awayName} 实时比赛的所有频道列表。",
-    ja: "視聴方法",
-    ko: "시청 방법",
-    vi: "Xem ở đâu",
-    he: "איפה לצפות",
-    th: "ช่องทางการรับชม"
+    jp: "{homeName}対{awayName}はどこで視聴できますか？テレビチャンネルのセクションでは、{homeName}対{awayName}のライブ配信を放送するすべてのチャンネルのリストが表示されます。",
+    kr: "{homeName} 대 {awayName} 경기는 어디서 볼 수 있나요? TV 채널 섹션에서 {homeName} – {awayName} 라이브 경기를 중계하는 모든 채널 목록을 확인하실 수 있습니다.",
+    vn: "Xem {homeName} vs. {awayName} ở đâu? Trong phần Kênh TV, bạn có thể tìm thấy danh sách tất cả các kênh phát sóng trực tiếp trận đấu {homeName} – {awayName}.",
+    he: "איפה לצפות ב-{homeName} נגד {awayName}? תחת מדור ערוצי הטלוויזיה תוكل למצוא את רשימת כל הערוצים המשדרים את המשחק החי בין {homeName} ל-{awayName}.",
+    th: "รับชม {homeName} vs. {awayName} ได้ที่ไหน? ภายใต้เซกชันช่องทีวี คุณสามารถค้นหารายชื่อช่องทั้งหมดที่ถ่ายทอดสดการแข่งขันระหว่าง {homeName} – {awayName} ได้"
   },
   event_details: {
     en: "Event details",
@@ -1408,9 +1414,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     sv: "Händelsedetaljer",
     tr: "Etkinlik detayları",
     zh: "活动详情",
-    ja: "イベント詳細",
-    ko: "이벤트 상세 정보",
-    vi: "Chi tiết sự kiện",
+    jp: "イベント詳細",
+    kr: "이벤트 상세 정보",
+    vn: "Chi tiết sự kiện",
     he: "פרטי האירוע",
     th: "รายละเอียดงาน"
   },
@@ -1445,9 +1451,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     sv: "NAMN",
     tr: "AD",
     zh: "名称",
-    ja: "イベント名",
-    ko: "이벤트 이름",
-    vi: "Tên sự kiện",
+    jp: "イベント名",
+    kr: "이벤트 이름",
+    vn: "Tên sự kiện",
     he: "שם האירוע",
     th: "ชื่อกิจกรรม"
   },
@@ -1482,9 +1488,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     sv: "DATUM",
     tr: "TARİH",
     zh: "日期",
-    ja: "日付",
-    ko: "날짜",
-    vi: "Ngày",
+    jp: "日付",
+    kr: "날짜",
+    vn: "Ngày",
     he: "תאריך",
     th: "วันที่"
   },
@@ -1519,9 +1525,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     sv: "TID",
     tr: "SAAT",
     zh: "时间",
-    ja: "時間",
-    ko: "시간",
-    vi: "Thời gian",
+    jp: "時間",
+    kr: "시간",
+    vn: "Thời gian",
     he: "שעה",
     th: "เวลา"
   },
@@ -1556,9 +1562,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     sv: "ARENA",
     tr: "STADYUM",
     zh: "场地",
-    ja: "会場",
-    ko: "장소",
-    vi: "Địa điểm",
+    jp: "会場",
+    kr: "장소",
+    vn: "Địa điểm",
     he: "מיקום",
     th: "สถานที่จัดงาน"
   },
@@ -1593,9 +1599,9 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
     sv: "Njut av varje FIFA VM-match live online GRATIS, tv-bevakning, repriser, höjdpunkter från var som helst när som helst. Optimerad för PC, Mac, iPad, iPhone, Android, PS4, Xbox One och Smart-TV.",
     tr: "Her FIFA Dünya Kupası maçını canlı olarak çevrimiçi ÜCRETSİZ izleyin; TV yayınları, tekrarlar ve özetler her an her yerde yanınızda. PC, Mac, iPad, iPhone, Android, PS4, Xbox One ve Akıllı TV'ler için optimize edilmiştir.",
     zh: "随时随地免费在线观看每一场 2026 FIFA 世界杯直播、电视转播、重播和集锦。针对 PC、Mac、iPad、iPhone、Android、PS4、Xbox One 和智能电视进行了优化。",
-    ja: "FIFAワールドカップの全試合を、いつでもどこでも無料のオンラインライブ配信、テレビ放送、録画、ハイライトでお楽しみいただけます。PC、Mac、iPad、iPhone、Android、PS4、Xbox One、スマートTV向けに最適化されています。",
-    ko: "언제 어디서나 무료 온라인 라이브 스트리밍, TV 중계, 다시보기, 하이라이트로 FIFA 월드컵의 모든 경기를 즐기세요. PC, Mac, iPad, iPhone, Android, PS4, Xbox One, 스마트 TV에 최적화되어 있습니다.",
-    vi: "Thưởng thức miễn phí mọi trận đấu FIFA World Cup phát trực tiếp trực tuyến, truyền hình, phát lại, highlights mọi lúc mọi nơi. Tối ưu hóa cho PC, Mac, iPad, iPhone, Android, PS4, Xbox One và Smart TV.",
+    jp: "FIFAワールドカップの全試合を、いつでもどこでも無料のオンラインライブ配信、テレビ放送、録画、ハイライトでお楽しみいただけます。PC、Mac、iPad、iPhone、Android、PS4、Xbox One、スマートTV向けに最適化されています。",
+    kr: "언제 어디서나 무료 온라인 라이브 스트리밍, TV 중계, 다시보기, 하이라이트로 FIFA 월드컵의 모든 경기를 즐기세요. PC, Mac, iPad, iPhone, Android, PS4, Xbox One, 스마트 TV에 최적화되어 있습니다.",
+    vn: "Thưởng thức miễn phí mọi trận đấu FIFA World Cup phát trực tiếp trực tuyến, truyền hình, phát lại, highlights mọi lúc mọi nơi. Tối ưu hóa cho PC, Mac, iPad, iPhone, Android, PS4, Xbox One và Smart TV.",
     he: "תיהנו מכל משחק של גביע העולם של פיפ״א בשידור חי אונליין בחינם, שידורי טלוויזיה, תקצירים ושחזורים מכל מקום ובכל זמן. מותאם למחשבים, מק, אייפד, אייפון, אנדרואיד, פלייסטיישν, אקסבוקס וטלוויזיות חכמות.",
     th: "รับชมการถ่ายทอดสด การรายงานข่าวทางทีวี ย้อนหลัง และไฮไลท์ฟุตบอลโลกฟรีออนไลน์ได้ทุกที่ทุกเวลา รองรับการใช้งานทั้งบนพีซี, แมค, ไอแพด, ไอโฟน, แอนดรอยด์, PS4, Xbox One และสมาร์ททีวี"
   }
@@ -1621,15 +1627,15 @@ export function getTimezoneLanguage(): LanguageCode | null {
       if (tzLower.includes("kolkata") || tzLower.includes("calcutta")) return "bn" // West Bengal (Bengali)
       if (tzLower.includes("shanghai") || tzLower.includes("urumqi")) return "zh" // China
       if (tzLower.includes("berlin") || tzLower.includes("busingen") || tzLower.includes("germany")) return "de" // Germany
-      if (tzLower.includes("tokyo") || tzLower.includes("japan")) return "ja"
-      if (tzLower.includes("seoul") || tzLower.includes("korea")) return "ko"
-      if (tzLower.includes("saigon") || tzLower.includes("hanoi") || tzLower.includes("vietnam")) return "vi"
+      if (tzLower.includes("tokyo") || tzLower.includes("japan")) return "jp"
+      if (tzLower.includes("seoul") || tzLower.includes("korea")) return "kr"
+      if (tzLower.includes("saigon") || tzLower.includes("hanoi") || tzLower.includes("vietnam")) return "vn"
       if (tzLower.includes("jerusalem") || tzLower.includes("tel_aviv") || tzLower.includes("israel")) return "he"
       if (tzLower.includes("bangkok") || tzLower.includes("thai")) return "th"
       if (tzLower.includes("zurich") || tzLower.includes("geneva") || tzLower.includes("switzerland")) return "ch"
-      if (tzLower.includes("tokyo") || tzLower.includes("japan")) return "ja"
-      if (tzLower.includes("seoul") || tzLower.includes("korea")) return "ko"
-      if (tzLower.includes("saigon") || tzLower.includes("hanoi") || tzLower.includes("vietnam")) return "vi"
+      if (tzLower.includes("tokyo") || tzLower.includes("japan")) return "jp"
+      if (tzLower.includes("seoul") || tzLower.includes("korea")) return "kr"
+      if (tzLower.includes("saigon") || tzLower.includes("hanoi") || tzLower.includes("vietnam")) return "vn"
       if (tzLower.includes("jerusalem") || tzLower.includes("tel_aviv") || tzLower.includes("israel")) return "he"
       if (tzLower.includes("bangkok") || tzLower.includes("thai")) return "th"
       if (tzLower.includes("zurich") || tzLower.includes("geneva") || tzLower.includes("switzerland")) return "de"
@@ -1752,7 +1758,7 @@ export const COUNTRY_TO_LANG: Record<string, LanguageCode> = {
   TR: "tr",
   // Chinese
   CN: "zh", TW: "zh", HK: "zh", SG: "zh",
-  JP: "ja", KR: "ko", VN: "vi", IL: "he", TH: "th", CH: "ch"
+  JP: "jp", KR: "kr", VN: "vn", IL: "he", TH: "th", CH: "ch"
 }
 
 export function mapCountryToLanguage(countryCode: string): LanguageCode {
@@ -1794,9 +1800,9 @@ export const PREFIX_TO_LANG: Record<string, LanguageCode> = {
   tr: "tr",
   zh: "zh",
   cn: "zh",
-  ja: "ja",
-  ko: "ko",
-  vi: "vi",
+  jp: "jp",
+  kr: "kr",
+  vn: "vn",
   he: "he",
   il: "he",
   th: "th",
@@ -1834,9 +1840,9 @@ export const LANG_TO_PREFIX: Record<LanguageCode, string> = {
   sv: "sv",
   tr: "tr",
   zh: "zh",
-  ja: "ja",
-  ko: "ko",
-  vi: "vi",
+  jp: "jp",
+  kr: "kr",
+  vn: "vn",
   he: "he",
   th: "th",
   ch: "ch"
@@ -2016,6 +2022,10 @@ export function formatLocalTime(date: Date, lang: LanguageCode, timeZone?: strin
     if (lang === "en-us") locale = "en-US"
     else if (lang === "pt") locale = "pt-BR"
     else if (lang === "es-la") locale = "es-419"
+    else if (lang === "jp") locale = "ja"
+    else if (lang === "kr") locale = "ko"
+    else if (lang === "vn") locale = "vi"
+    else if (lang === "ch") locale = "de-CH"
     else locale = lang
 
     const dateStr = date.toLocaleString(locale, {
@@ -2055,6 +2065,10 @@ export function formatLocalDateOnly(date: Date, lang: LanguageCode, timeZone?: s
     if (lang === "en-us") locale = "en-US"
     else if (lang === "pt") locale = "pt-BR"
     else if (lang === "es-la") locale = "es-419"
+    else if (lang === "jp") locale = "ja"
+    else if (lang === "kr") locale = "ko"
+    else if (lang === "vn") locale = "vi"
+    else if (lang === "ch") locale = "de-CH"
     else locale = lang
 
     return date.toLocaleDateString(locale, {
@@ -2080,4 +2094,19 @@ export function getLocalizedTeamName(team: any, fallback: string, activeLang: La
   }
   if (resolvedLang === "ar" && team.name_fa) return team.name_fa
   return team.name_en || fallback
+}
+
+export function getLocalizedStadiumName(stadium: any, activeLang: LanguageCode): string {
+  if (!stadium) return ""
+  const resolvedLang = activeLang === "ch" ? "de" : activeLang
+  if (stadium.translations) {
+    try {
+      const parsed = typeof stadium.translations === "string" ? JSON.parse(stadium.translations) : stadium.translations
+      if (parsed && parsed[resolvedLang]) return parsed[resolvedLang]
+    } catch { }
+  }
+  if (resolvedLang === "ar" && stadium.name_fa && stadium.city_fa) {
+    return `${stadium.name_fa}, ${stadium.city_fa}`
+  }
+  return `${stadium.name_en}, ${stadium.city_en}`
 }
