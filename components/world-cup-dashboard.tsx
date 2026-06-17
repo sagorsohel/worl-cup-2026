@@ -62,10 +62,6 @@ export default function WorldCupDashboard() {
       .catch(() => { })
   }, [])
 
-  useEffect(() => {
-    document.title = "World Cup 2026 Dashboard"
-  }, [])
-
   // Selectors from Redux UI State
   const lang = useAppSelector((state) => state.ui.language)
   const searchQuery = useAppSelector((state) => state.ui.searchQuery)
@@ -74,6 +70,10 @@ export default function WorldCupDashboard() {
   const selectedGroup = useAppSelector((state) => state.ui.selectedGroup)
   const selectedTeamId = useAppSelector((state) => state.ui.selectedTeamId)
   const detectedTimezone = useAppSelector((state) => state.ui.detectedTimezone)
+
+  useEffect(() => {
+    document.title = translate("title", lang)
+  }, [lang])
 
   // API Queries via RTK Query
   const {

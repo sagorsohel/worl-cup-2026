@@ -18,34 +18,12 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const [isInitialized, setIsInitialized] = useState(false)
   const isManageRoute = pathname?.startsWith("/manage")
 
-  // Synchronize URL prefix when pathname or language changes
+  // Synchronize cookie and local storage when language changes
   useEffect(() => {
     if (isManageRoute || !isInitialized) return
-
-    const currentPrefix = getPrefixFromLanguage(lang)
-    const pathParts = window.location.pathname.split("/")
-    const firstSeg = pathParts[1]
-
-    if (firstSeg && VALID_PREFIXES.includes(firstSeg.toLowerCase())) {
-      const pathLang = getLanguageFromPrefix(firstSeg)
-      if (pathLang !== lang) {
-        // Language changed from the dropdown, update URL prefix
-        pathParts[1] = currentPrefix
-        const newPath = pathParts.join("/")
-        const search = window.location.search
-        document.cookie = `worldcup2026_lang=${lang}; path=/; max-age=31536000`
-        localStorage.setItem("worldcup2026_lang", lang)
-        window.location.href = newPath + search
-      }
-    } else {
-      // Path has no prefix. Normalizing URL. Use replaceState to avoid history stack pollution.
-      const newPath = "/" + currentPrefix + window.location.pathname
-      const search = window.location.search
-      window.history.replaceState(null, "", newPath + search)
-      document.cookie = `worldcup2026_lang=${lang}; path=/; max-age=31536000`
-      localStorage.setItem("worldcup2026_lang", lang)
-    }
-  }, [lang, pathname, isManageRoute])
+    document.cookie = `worldcup2026_lang=${lang}; path=/; max-age=31536000`
+    localStorage.setItem("worldcup2026_lang", lang)
+  }, [lang, isManageRoute, isInitialized])
 
   useEffect(() => {
     // Detect browser, local storage, or IP-based region and sync to Redux
@@ -88,24 +66,16 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
           }
         } catch (tzErr) {}
 
-        // Check URL pathname prefix first
-        let pathLang: any = null
-        if (typeof window !== "undefined") {
-          const pathParts = window.location.pathname.split("/")
-          const firstSeg = pathParts[1]
-          if (firstSeg && VALID_PREFIXES.includes(firstSeg.toLowerCase())) {
-            pathLang = getLanguageFromPrefix(firstSeg)
-          }
-        }
+        // Check cookie language first (especially since proxy.ts sets it during redirect)
+        const cookieMatch = typeof document !== "undefined" && document.cookie.match(/(?:^|; )worldcup2026_lang=([^;]*)/)
+        const cookieLang = cookieMatch ? cookieMatch[1] : null
 
         const saved = localStorage.getItem("worldcup2026_lang")
         const isManual = localStorage.getItem("worldcup2026_lang_manual") === "true"
 
-        if (pathLang) {
-          dispatch(setLanguage(pathLang))
-          localStorage.setItem("worldcup2026_lang", pathLang)
-          localStorage.setItem("worldcup2026_lang_manual", "true")
-          document.cookie = `worldcup2026_lang=${pathLang}; path=/; max-age=31536000`
+        if (cookieLang && LANGUAGES.some(l => l.code === cookieLang)) {
+          dispatch(setLanguage(cookieLang as any))
+          localStorage.setItem("worldcup2026_lang", cookieLang)
           
           // Only fetch timezone in background, do not overwrite language
           try {

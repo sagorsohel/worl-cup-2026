@@ -1,11 +1,10 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 import { 
-  VALID_PREFIXES, 
   getLanguageFromPrefix, 
-  getPrefixFromLanguage, 
   COUNTRY_TO_LANG, 
-  LANGUAGES 
+  LANGUAGES,
+  PREFIX_TO_LANG
 } from "./lib/i18n"
 
 export function proxy(request: NextRequest) {
@@ -35,28 +34,18 @@ export function proxy(request: NextRequest) {
   const pathParts = pathname.split("/")
   const firstSeg = pathParts[1]
 
-  // Check if first segment is a valid prefix
-  if (firstSeg && VALID_PREFIXES.includes(firstSeg.toLowerCase())) {
+  // Intercept all language prefixes and redirect (307) to clean, non-prefixed paths
+  const ALL_PREFIXES = Object.keys(PREFIX_TO_LANG)
+  if (firstSeg && ALL_PREFIXES.includes(firstSeg.toLowerCase())) {
     const langCode = getLanguageFromPrefix(firstSeg)
-
-    // Construct the internal path (without prefix)
     const internalPath = "/" + pathParts.slice(2).join("/")
-
-    // Set request headers so the server components can read x-next-lang
-    requestHeaders.set("x-next-lang", langCode)
-
-    const response = NextResponse.rewrite(new URL(internalPath, request.url), {
-      request: {
-        headers: requestHeaders,
-      },
-    })
-
-    // Set language cookie so the client state and subsequent requests persist
+    const redirectUrl = new URL(`${internalPath === "" ? "/" : internalPath}${request.nextUrl.search}`, request.url)
+    const response = NextResponse.redirect(redirectUrl, 307)
     response.cookies.set("worldcup2026_lang", langCode, { path: "/", maxAge: 31536000 })
     return response
   }
 
-  // If no prefix is present: auto-detect and redirect
+  // If no prefix is present (clean URL): auto-detect the language
   let detectedLang: string | undefined = undefined
 
   // Check for overrides in query params first (ideal for testing/debugging)
@@ -142,12 +131,19 @@ export function proxy(request: NextRequest) {
     ? (detectedLang as any) 
     : "en"
 
-  const redirectPrefix = getPrefixFromLanguage(finalLang)
+  // Always set the header and let Next.js serve the clean URL directly
+  requestHeaders.set("x-next-lang", finalLang)
+  const response = NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    },
+  })
+  
+  // Also synchronize the cookie if it is missing or different
+  if (request.cookies.get("worldcup2026_lang")?.value !== finalLang) {
+    response.cookies.set("worldcup2026_lang", finalLang, { path: "/", maxAge: 31536000 })
+  }
 
-  // Redirect to prefixed URL, keeping query parameters and pathname
-  const redirectUrl = new URL(`/${redirectPrefix}${pathname}${request.nextUrl.search}`, request.url)
-  const response = NextResponse.redirect(redirectUrl, 307)
-  response.cookies.set("worldcup2026_lang", finalLang, { path: "/", maxAge: 31536000 })
   return response
 }
 

@@ -1848,7 +1848,7 @@ export const LANG_TO_PREFIX: Record<LanguageCode, string> = {
   ch: "ch"
 }
 
-export const VALID_PREFIXES = Object.keys(PREFIX_TO_LANG)
+export const VALID_PREFIXES = Object.keys(PREFIX_TO_LANG).filter(p => p !== "en" && p !== "us")
 
 export function getPrefixFromLanguage(lang: LanguageCode): string {
   return LANG_TO_PREFIX[lang] || "en"
