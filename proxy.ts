@@ -35,24 +35,18 @@ export function proxy(request: NextRequest) {
   const pathParts = pathname.split("/")
   const firstSeg = pathParts[1]
 
-  // Check if first segment is a valid prefix (e.g. en, fr, bn, he, kr)
+  // Check if first segment is a valid prefix (e.g. en, fr, bn, he, kr) and redirect to clean URL
   if (firstSeg && VALID_PREFIXES.includes(firstSeg.toLowerCase())) {
     const langCode = getLanguageFromPrefix(firstSeg)
 
     // Construct the internal path (without prefix)
     const internalPath = "/" + pathParts.slice(2).join("/")
 
-    // Set request headers so the server components can read x-next-lang
-    requestHeaders.set("x-next-lang", langCode)
-
-    const response = NextResponse.rewrite(new URL(internalPath, request.url), {
-      request: {
-        headers: requestHeaders,
-      },
-    })
-
-    // Set language cookie so the client state and subsequent requests persist
+    // Redirect to clean path without prefix, but set cookie!
+    const redirectUrl = new URL(`${internalPath === "" ? "/" : internalPath}${request.nextUrl.search}`, request.url)
+    const response = NextResponse.redirect(redirectUrl, 307)
     response.cookies.set("worldcup2026_lang", langCode, { path: "/", maxAge: 31536000 })
+    response.cookies.set("worldcup2026_lang_manual", "true", { path: "/", maxAge: 31536000 })
     return response
   }
 
@@ -69,11 +63,11 @@ export function proxy(request: NextRequest) {
     detectedLang = COUNTRY_TO_LANG[countryParam.toUpperCase()]
   }
 
-  // 1. Check if user already has a valid language cookie and it was set manually
+  // 1. Check if user already has a valid language cookie
   if (!detectedLang) {
-    const isManual = request.cookies.get("worldcup2026_lang_manual")?.value === "true"
-    if (isManual) {
-      detectedLang = request.cookies.get("worldcup2026_lang")?.value
+    const cookieLang = request.cookies.get("worldcup2026_lang")?.value
+    if (cookieLang && LANGUAGES.some(l => l.code === cookieLang)) {
+      detectedLang = cookieLang
     }
   }
   
@@ -128,12 +122,19 @@ export function proxy(request: NextRequest) {
     ? (detectedLang as any) 
     : "en"
 
-  const redirectPrefix = getPrefixFromLanguage(finalLang)
+  // Set request headers so the server components can read x-next-lang
+  requestHeaders.set("x-next-lang", finalLang)
+  const response = NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    },
+  })
 
-  // Redirect to prefixed URL, keeping query parameters and pathname
-  const redirectUrl = new URL(`/${redirectPrefix}${pathname}${request.nextUrl.search}`, request.url)
-  const response = NextResponse.redirect(redirectUrl, 307)
-  response.cookies.set("worldcup2026_lang", finalLang, { path: "/", maxAge: 31536000 })
+  // Synchronize the cookie if it is missing or different
+  if (request.cookies.get("worldcup2026_lang")?.value !== finalLang) {
+    response.cookies.set("worldcup2026_lang", finalLang, { path: "/", maxAge: 31536000 })
+  }
+
   return response
 }
 

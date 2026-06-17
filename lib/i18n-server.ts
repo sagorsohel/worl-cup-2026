@@ -9,11 +9,20 @@ export async function getPreferredLanguage(): Promise<LanguageCode> {
     
     const parsedLangs = acceptLang.split(",")
     for (const rawLang of parsedLangs) {
-      const cleanLang = rawLang.split(";")[0].trim().toLowerCase()
+      let cleanLang = rawLang.split(";")[0].trim().toLowerCase()
+      // Map standard browser language codes to our custom keys
+      if (cleanLang === "ja" || cleanLang === "ja-jp") cleanLang = "jp"
+      else if (cleanLang === "ko" || cleanLang === "ko-kr") cleanLang = "kr"
+      else if (cleanLang === "vi" || cleanLang === "vi-vn") cleanLang = "vn"
+
       const exactMatch = LANGUAGES.find(l => l.code === cleanLang)
       if (exactMatch) return exactMatch.code
 
-      const baseCode = cleanLang.split("-")[0] as LanguageCode
+      let baseCode = cleanLang.split("-")[0] as LanguageCode
+      if (baseCode === "ja" as any) baseCode = "jp" as any
+      else if (baseCode === "ko" as any) baseCode = "kr" as any
+      else if (baseCode === "vi" as any) baseCode = "vn" as any
+
       const baseMatch = LANGUAGES.find(l => l.code === baseCode)
       if (baseMatch) {
         if (baseCode === "pt") {

@@ -18,36 +18,12 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const [isInitialized, setIsInitialized] = useState(false)
   const isManageRoute = pathname?.startsWith("/manage")
 
-  // Synchronize URL prefix when pathname or language changes (without page reloads!)
+  // Synchronize language state with cookie and localStorage when language changes (without reloading)
   useEffect(() => {
     if (isManageRoute || !isInitialized) return
-
-    const currentPrefix = getPrefixFromLanguage(lang)
-    const pathParts = window.location.pathname.split("/")
-    const firstSeg = pathParts[1]
-
-    if (firstSeg && VALID_PREFIXES.includes(firstSeg.toLowerCase())) {
-      const pathLang = getLanguageFromPrefix(firstSeg)
-      if (pathLang !== lang) {
-        // Language changed from the dropdown, update URL prefix in address bar without reload!
-        pathParts[1] = currentPrefix
-        const newPath = pathParts.join("/")
-        const search = window.location.search
-        
-        // Update cookie, localStorage, and browser URL path without reload
-        document.cookie = `worldcup2026_lang=${lang}; path=/; max-age=31536000`
-        localStorage.setItem("worldcup2026_lang", lang)
-        window.history.replaceState(null, "", newPath + search)
-      }
-    } else {
-      // Path has no prefix. Normalizing URL in address bar without reload!
-      const newPath = "/" + currentPrefix + window.location.pathname
-      const search = window.location.search
-      window.history.replaceState(null, "", newPath + search)
-      document.cookie = `worldcup2026_lang=${lang}; path=/; max-age=31536000`
-      localStorage.setItem("worldcup2026_lang", lang)
-    }
-  }, [lang, pathname, isManageRoute, isInitialized])
+    document.cookie = `worldcup2026_lang=${lang}; path=/; max-age=31536000`
+    localStorage.setItem("worldcup2026_lang", lang)
+  }, [lang, isManageRoute, isInitialized])
 
   useEffect(() => {
     // Detect browser, local storage, or IP-based region and sync to Redux
@@ -90,16 +66,6 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
           }
         } catch (tzErr) {}
 
-        // Check URL pathname prefix first
-        let pathLang: any = null
-        if (typeof window !== "undefined") {
-          const pathParts = window.location.pathname.split("/")
-          const firstSeg = pathParts[1]
-          if (firstSeg && VALID_PREFIXES.includes(firstSeg.toLowerCase())) {
-            pathLang = getLanguageFromPrefix(firstSeg)
-          }
-        }
-
         const cookieMatch = typeof document !== "undefined" && document.cookie.match(/(?:^|; )worldcup2026_lang=([^;]*)/)
         const cookieLang = cookieMatch ? cookieMatch[1] : null
 
@@ -107,54 +73,18 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
         const hasManualCookie = typeof document !== "undefined" && document.cookie.includes("worldcup2026_lang_manual=true")
         const isManual = (localStorage.getItem("worldcup2026_lang_manual") === "true") || hasManualCookie
 
-        if (pathLang) {
-          dispatch(setLanguage(pathLang))
-          localStorage.setItem("worldcup2026_lang", pathLang)
-          document.cookie = `worldcup2026_lang=${pathLang}; path=/; max-age=31536000`
-          
-          // Verify physical location in background and override if not manual selection
-          try {
-            const data = await getRegionData()
-            if (data) {
-              if (data.timezone) {
-                dispatch(setDetectedTimezone(data.timezone))
-              }
-              
-              if (!isManual) {
-                let detectedCountryLang: LanguageCode | null = null
-                if (data.country_code) {
-                  detectedCountryLang = mapCountryToLanguage(data.country_code)
-                } else {
-                  detectedCountryLang = getTimezoneLanguage()
-                }
-                
-                if (detectedCountryLang && detectedCountryLang !== pathLang) {
-                  console.log("[LAYOUT WRAPPER] Automatically overriding default prefix:", pathLang, "->", detectedCountryLang)
-                  dispatch(setLanguage(detectedCountryLang))
-                  localStorage.setItem("worldcup2026_lang", detectedCountryLang)
-                  document.cookie = `worldcup2026_lang=${detectedCountryLang}; path=/; max-age=31536000`
-                }
-              }
-            }
-          } catch (e) {
-            console.error("[LAYOUT WRAPPER] Failed dynamic prefix override check:", e)
-          }
-        } else if (cookieLang && isManual && LANGUAGES.some(l => l.code === cookieLang)) {
-          dispatch(setLanguage(cookieLang as any))
-          localStorage.setItem("worldcup2026_lang", cookieLang)
+        // Respect any valid language that has been saved/detected, except default "en" without manual flag
+        const hasSavedChoice = (cookieLang && cookieLang !== "en" && LANGUAGES.some(l => l.code === cookieLang)) ||
+                              (saved && saved !== "en" && LANGUAGES.some(l => l.code === saved)) ||
+                              (cookieLang === "en" && isManual) ||
+                              (saved === "en" && isManual)
+
+        if (hasSavedChoice) {
+          const targetLang = (cookieLang && LANGUAGES.some(l => l.code === cookieLang)) ? cookieLang : (saved as any)
+          dispatch(setLanguage(targetLang as any))
+          localStorage.setItem("worldcup2026_lang", targetLang)
           
           // Only fetch timezone in background, do not overwrite language
-          try {
-            const data = await getRegionData()
-            if (data && data.timezone) {
-              dispatch(setDetectedTimezone(data.timezone))
-            }
-          } catch (e) {}
-        } else if (saved && isManual) {
-          dispatch(setLanguage(saved as any))
-          document.cookie = `worldcup2026_lang=${saved}; path=/; max-age=31536000`
-          
-          // Still fetch IP-based timezone background even if language is saved
           try {
             const data = await getRegionData()
             if (data && data.timezone) {
