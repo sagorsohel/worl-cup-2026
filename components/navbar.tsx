@@ -261,6 +261,7 @@ export function Navbar() {
                           localStorage.setItem("worldcup2026_lang", l.code)
                           localStorage.setItem("worldcup2026_lang_manual", "true")
                           document.cookie = `worldcup2026_lang=${l.code}; path=/; max-age=31536000`
+                          document.cookie = `worldcup2026_lang_manual=true; path=/; max-age=31536000`
                         } catch { }
                       }}
                       className={`cursor-pointer px-3 py-2 text-xs rounded-lg transition-all focus:bg-cyan-500/15 focus:text-cyan-400 font-bold ${lang === l.code ? "bg-cyan-500/10 text-cyan-400" : "text-slate-300"

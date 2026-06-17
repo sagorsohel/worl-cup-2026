@@ -1650,11 +1650,14 @@ export function detectBrowserLanguage(): LanguageCode {
     return "en"
   }
 
-  // 1. Check LocalStorage first for manual user selection persistence
+  // 1. Check LocalStorage first for manual user selection persistence (only if manual flag is true)
   try {
-    const savedLang = window.localStorage.getItem("worldcup2026_lang") as LanguageCode | null
-    if (savedLang && LANGUAGES.some(l => l.code === savedLang)) {
-      return savedLang
+    const isManual = window.localStorage.getItem("worldcup2026_lang_manual") === "true"
+    if (isManual) {
+      const savedLang = window.localStorage.getItem("worldcup2026_lang") as LanguageCode | null
+      if (savedLang && LANGUAGES.some(l => l.code === savedLang)) {
+        return savedLang
+      }
     }
   } catch (e) {}
 
@@ -1848,7 +1851,7 @@ export const LANG_TO_PREFIX: Record<LanguageCode, string> = {
   ch: "ch"
 }
 
-export const VALID_PREFIXES = Object.keys(PREFIX_TO_LANG).filter(p => p !== "en" && p !== "us")
+export const VALID_PREFIXES = Object.keys(PREFIX_TO_LANG)
 
 export function getPrefixFromLanguage(lang: LanguageCode): string {
   return LANG_TO_PREFIX[lang] || "en"
