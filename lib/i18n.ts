@@ -1620,25 +1620,26 @@ export function getTimezoneLanguage(): LanguageCode | null {
     const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
     if (timeZone) {
       const tzLower = timeZone.toLowerCase()
-      if (tzLower.includes("dhaka")) return "bn" // Bangladesh
-      if (tzLower.includes("tehran")) return "ar" // Iran (RTL Arabic alphabet layout)
-      if (tzLower.includes("baku")) return "az" // Azerbaijan
-      if (tzLower.includes("istanbul")) return "tr" // Turkey
-      if (tzLower.includes("kolkata") || tzLower.includes("calcutta")) return "bn" // West Bengal (Bengali)
-      if (tzLower.includes("shanghai") || tzLower.includes("urumqi")) return "zh" // China
-      if (tzLower.includes("berlin") || tzLower.includes("busingen") || tzLower.includes("germany")) return "de" // Germany
+      if (tzLower.includes("dhaka") || tzLower.includes("kolkata") || tzLower.includes("calcutta")) return "bn"
+      if (tzLower.includes("sao_paulo") || tzLower.includes("brazil") || tzLower.includes("rio") || tzLower.includes("manaus") || tzLower.includes("recife") || tzLower.includes("fortaleza")) return "pt"
+      if (tzLower.includes("lisbon") || tzLower.includes("portugal") || tzLower.includes("madeira") || tzLower.includes("azores")) return "pt-pt"
+      if (tzLower.includes("madrid") || tzLower.includes("spain") || tzLower.includes("canary") || tzLower.includes("balearic")) return "es"
+      if (["buenos_aires", "santiago", "bogota", "lima", "mexico", "caracas", "quito", "guayaquil", "montevideo", "asuncion", "la_paz", "panama", "costa_rica", "san_jose", "honduras", "tegucigalpa", "el_salvador", "guatemala", "nicaragua", "managua"].some(city => tzLower.includes(city))) return "es-la"
+      if (tzLower.includes("paris") || tzLower.includes("france") || tzLower.includes("monaco")) return "fr"
+      if (tzLower.includes("rome") || tzLower.includes("italy") || tzLower.includes("san_marino") || tzLower.includes("vatican")) return "it"
+      if (tzLower.includes("amsterdam") || tzLower.includes("netherlands") || tzLower.includes("brussels") || tzLower.includes("belgium") || tzLower.includes("suriname")) return "nl"
+      if (tzLower.includes("berlin") || tzLower.includes("germany") || tzLower.includes("vienna") || tzLower.includes("austria") || tzLower.includes("liechtenstein")) return "de"
+      if (tzLower.includes("tehran")) return "ar" // Iran (using RTL layout)
+      if (["riyadh", "cairo", "baghdad", "dubai", "kuwait", "qatar", "doha", "muscat", "bahrain", "amman", "beirut", "damascus", "khartoum", "tripoli", "tunis", "algiers", "casablanca"].some(city => tzLower.includes(city))) return "ar"
+      if (tzLower.includes("baku")) return "az"
+      if (tzLower.includes("istanbul")) return "tr"
+      if (tzLower.includes("shanghai") || tzLower.includes("urumqi") || tzLower.includes("hong_kong") || tzLower.includes("taipei") || tzLower.includes("beijing") || tzLower.includes("china")) return "zh"
       if (tzLower.includes("tokyo") || tzLower.includes("japan")) return "jp"
       if (tzLower.includes("seoul") || tzLower.includes("korea")) return "kr"
       if (tzLower.includes("saigon") || tzLower.includes("hanoi") || tzLower.includes("vietnam")) return "vn"
       if (tzLower.includes("jerusalem") || tzLower.includes("tel_aviv") || tzLower.includes("israel")) return "he"
       if (tzLower.includes("bangkok") || tzLower.includes("thai")) return "th"
       if (tzLower.includes("zurich") || tzLower.includes("geneva") || tzLower.includes("switzerland")) return "ch"
-      if (tzLower.includes("tokyo") || tzLower.includes("japan")) return "jp"
-      if (tzLower.includes("seoul") || tzLower.includes("korea")) return "kr"
-      if (tzLower.includes("saigon") || tzLower.includes("hanoi") || tzLower.includes("vietnam")) return "vn"
-      if (tzLower.includes("jerusalem") || tzLower.includes("tel_aviv") || tzLower.includes("israel")) return "he"
-      if (tzLower.includes("bangkok") || tzLower.includes("thai")) return "th"
-      if (tzLower.includes("zurich") || tzLower.includes("geneva") || tzLower.includes("switzerland")) return "de"
     }
   } catch (e) {}
   return null
@@ -1664,37 +1665,6 @@ export function detectBrowserLanguage(): LanguageCode {
   // 2. Check timezone for specific regions
   const tzLang = getTimezoneLanguage()
   if (tzLang) return tzLang
-
-  // 3. Get preferred languages list
-  const browserLangs = navigator.languages || [navigator.language || "en"]
-  
-  for (const rawLang of browserLangs) {
-    const cleanLang = rawLang.toLowerCase()
-    
-    // Exact match
-    const exactMatch = LANGUAGES.find(l => l.code === cleanLang)
-    if (exactMatch) return exactMatch.code
-
-    // Base language match (e.g. "en-GB" -> "en")
-    const baseCode = cleanLang.split("-")[0] as LanguageCode
-    const baseMatch = LANGUAGES.find(l => l.code === baseCode)
-    if (baseMatch) {
-      // Differentiate Portuguese
-      if (baseCode === "pt") {
-        if (cleanLang.includes("pt-pt")) return "pt-pt"
-        return "pt" // default to pt-BR
-      }
-      // Differentiate Spanish
-      if (baseCode === "es") {
-        // Latin America locales
-        if (["es-ar", "es-cl", "es-co", "es-cr", "es-do", "es-ec", "es-gt", "es-hn", "es-mx", "es-ni", "es-pa", "es-pe", "es-pr", "es-py", "es-sv", "es-uy", "es-ve", "es-419"].some(loc => cleanLang.includes(loc))) {
-          return "es-la"
-        }
-        return "es" // Spain
-      }
-      return baseCode
-    }
-  }
 
   return "en"
 }

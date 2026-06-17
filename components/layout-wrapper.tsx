@@ -112,13 +112,33 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
           localStorage.setItem("worldcup2026_lang", pathLang)
           document.cookie = `worldcup2026_lang=${pathLang}; path=/; max-age=31536000`
           
-          // Only fetch timezone in background, do not overwrite language
+          // Verify physical location in background and override if not manual selection
           try {
             const data = await getRegionData()
-            if (data && data.timezone) {
-              dispatch(setDetectedTimezone(data.timezone))
+            if (data) {
+              if (data.timezone) {
+                dispatch(setDetectedTimezone(data.timezone))
+              }
+              
+              if (!isManual) {
+                let detectedCountryLang: LanguageCode | null = null
+                if (data.country_code) {
+                  detectedCountryLang = mapCountryToLanguage(data.country_code)
+                } else {
+                  detectedCountryLang = getTimezoneLanguage()
+                }
+                
+                if (detectedCountryLang && detectedCountryLang !== pathLang) {
+                  console.log("[LAYOUT WRAPPER] Automatically overriding default prefix:", pathLang, "->", detectedCountryLang)
+                  dispatch(setLanguage(detectedCountryLang))
+                  localStorage.setItem("worldcup2026_lang", detectedCountryLang)
+                  document.cookie = `worldcup2026_lang=${detectedCountryLang}; path=/; max-age=31536000`
+                }
+              }
             }
-          } catch (e) {}
+          } catch (e) {
+            console.error("[LAYOUT WRAPPER] Failed dynamic prefix override check:", e)
+          }
         } else if (cookieLang && isManual && LANGUAGES.some(l => l.code === cookieLang)) {
           dispatch(setLanguage(cookieLang as any))
           localStorage.setItem("worldcup2026_lang", cookieLang)

@@ -93,49 +93,32 @@ export function proxy(request: NextRequest) {
           const serverTz = Intl.DateTimeFormat().resolvedOptions().timeZone
           if (serverTz) {
             const tzLower = serverTz.toLowerCase()
-            if (tzLower.includes("dhaka")) localTzLang = "bn"
-            else if (tzLower.includes("kolkata") || tzLower.includes("calcutta")) localTzLang = "bn"
+            if (tzLower.includes("dhaka") || tzLower.includes("kolkata") || tzLower.includes("calcutta")) localTzLang = "bn"
+            else if (tzLower.includes("sao_paulo") || tzLower.includes("brazil") || tzLower.includes("rio") || tzLower.includes("manaus") || tzLower.includes("recife") || tzLower.includes("fortaleza")) localTzLang = "pt"
+            else if (tzLower.includes("lisbon") || tzLower.includes("portugal") || tzLower.includes("madeira") || tzLower.includes("azores")) localTzLang = "pt-pt"
+            else if (tzLower.includes("madrid") || tzLower.includes("spain") || tzLower.includes("canary") || tzLower.includes("balearic")) localTzLang = "es"
+            else if (["buenos_aires", "santiago", "bogota", "lima", "mexico", "caracas", "quito", "guayaquil", "montevideo", "asuncion", "la_paz", "panama", "costa_rica", "san_jose", "honduras", "tegucigalpa", "el_salvador", "guatemala", "nicaragua", "managua"].some(city => tzLower.includes(city))) localTzLang = "es-la"
+            else if (tzLower.includes("paris") || tzLower.includes("france") || tzLower.includes("monaco")) localTzLang = "fr"
+            else if (tzLower.includes("rome") || tzLower.includes("italy") || tzLower.includes("san_marino") || tzLower.includes("vatican")) localTzLang = "it"
+            else if (tzLower.includes("amsterdam") || tzLower.includes("netherlands") || tzLower.includes("brussels") || tzLower.includes("belgium") || tzLower.includes("suriname")) localTzLang = "nl"
+            else if (tzLower.includes("berlin") || tzLower.includes("germany") || tzLower.includes("vienna") || tzLower.includes("austria") || tzLower.includes("liechtenstein")) localTzLang = "de"
             else if (tzLower.includes("tehran")) localTzLang = "ar"
+            else if (["riyadh", "cairo", "baghdad", "dubai", "kuwait", "qatar", "doha", "muscat", "bahrain", "amman", "beirut", "damascus", "khartoum", "tripoli", "tunis", "algiers", "casablanca"].some(city => tzLower.includes(city))) localTzLang = "ar"
             else if (tzLower.includes("baku")) localTzLang = "az"
             else if (tzLower.includes("istanbul")) localTzLang = "tr"
-            else if (tzLower.includes("shanghai") || tzLower.includes("urumqi")) localTzLang = "zh"
-            else if (tzLower.includes("berlin") || tzLower.includes("busingen") || tzLower.includes("germany")) localTzLang = "de"
+            else if (tzLower.includes("shanghai") || tzLower.includes("urumqi") || tzLower.includes("hong_kong") || tzLower.includes("taipei") || tzLower.includes("beijing") || tzLower.includes("china")) localTzLang = "zh"
+            else if (tzLower.includes("tokyo") || tzLower.includes("japan")) localTzLang = "jp"
+            else if (tzLower.includes("seoul") || tzLower.includes("korea")) localTzLang = "kr"
+            else if (tzLower.includes("saigon") || tzLower.includes("hanoi") || tzLower.includes("vietnam")) localTzLang = "vn"
+            else if (tzLower.includes("jerusalem") || tzLower.includes("tel_aviv") || tzLower.includes("israel")) localTzLang = "he"
+            else if (tzLower.includes("bangkok") || tzLower.includes("thai")) localTzLang = "th"
+            else if (tzLower.includes("zurich") || tzLower.includes("geneva") || tzLower.includes("switzerland")) localTzLang = "ch"
           }
         } catch (e) {}
       }
 
       if (localTzLang) {
         detectedLang = localTzLang
-      } else {
-        // 3. Detect from Accept-Language header
-        const acceptLang = request.headers.get("accept-language")
-        if (acceptLang) {
-          const parsedLangs = acceptLang.split(",")
-          for (const rawLang of parsedLangs) {
-            const cleanLang = rawLang.split(";")[0].trim().toLowerCase()
-            // Check for exact language code matches
-            const exactMatch = LANGUAGES.find(l => l.code === cleanLang)
-            if (exactMatch) {
-              detectedLang = exactMatch.code
-              break
-            }
-            // Check for base language matches
-            const baseCode = cleanLang.split("-")[0]
-            const baseMatch = LANGUAGES.find(l => l.code === baseCode)
-            if (baseMatch) {
-              if (baseCode === "pt") {
-                detectedLang = cleanLang.includes("pt-pt") ? "pt-pt" : "pt"
-              } else if (baseCode === "es") {
-                detectedLang = ["es-ar", "es-cl", "es-co", "es-cr", "es-do", "es-ec", "es-gt", "es-hn", "es-mx", "es-ni", "es-pa", "es-pe", "es-pr", "es-py", "es-sv", "es-uy", "es-ve", "es-419"].some(loc => cleanLang.includes(loc))
-                  ? "es-la"
-                  : "es"
-              } else {
-                detectedLang = baseCode
-              }
-              break
-            }
-          }
-        }
       }
     }
   }
