@@ -1,0 +1,9 @@
+Starting manual database sync script...
+Database tables verified/created successfully.
+Database Sync Started...
+Fetched 48 teams, 16 stadiums, 104 games.
+Groups Sync Started...
+Fetched 12 groups for sync.
+Groups Sync Completed Successfully!
+Database Sync Completed Successfully!
+Database sync completed successfully: { teams: 48, stadiums: 16, games: 104 }
