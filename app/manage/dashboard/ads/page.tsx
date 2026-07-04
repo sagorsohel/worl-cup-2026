@@ -1,11 +1,15 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Image from "next/image"
 import {
   SlidersHorizontal,
   CheckCircle,
-  AlertTriangle
+  AlertTriangle,
+  Upload,
+  X
 } from "lucide-react"
+import { getImageUrl } from "@/lib/utils"
 
 export default function AdsControlPage() {
   const [heroAds, setHeroAds] = useState("")
@@ -14,6 +18,7 @@ export default function AdsControlPage() {
   const [headerAds, setHeaderAds] = useState("")
   const [membershipRefLink, setMembershipRefLink] = useState("")
   const [signinRefLink, setSigninRefLink] = useState("")
+  const [globalBg, setGlobalBg] = useState("")
   
   const [adsSaving, setAdsSaving] = useState(false)
   const [adsMessage, setAdsMessage] = useState({ text: "", type: "success" })
@@ -30,10 +35,41 @@ export default function AdsControlPage() {
           setHeaderAds(data.ads.header_ads || "")
           setMembershipRefLink(data.ads.membership_ref_link || "")
           setSigninRefLink(data.ads.signin_ref_link || "")
+          setGlobalBg(data.ads.global_bg || "")
         }
       })
       .catch(() => { })
   }, [])
+
+  // Handle local file upload for global background
+  const handleBgUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    setAdsSaving(true)
+    setAdsMessage({ text: "", type: "success" })
+
+    const formData = new FormData()
+    formData.append("file", file)
+
+    try {
+      const res = await fetch("/api/manage/upload", {
+        method: "POST",
+        body: formData,
+      })
+      const data = await res.json()
+      if (res.ok && data.success) {
+        setGlobalBg(data.url)
+        setAdsMessage({ text: "Global background image uploaded successfully!", type: "success" })
+      } else {
+        setAdsMessage({ text: data.error || "Failed to upload image.", type: "error" })
+      }
+    } catch (err: any) {
+      setAdsMessage({ text: err.message || "Network error during upload.", type: "error" })
+    } finally {
+      setAdsSaving(false)
+    }
+  }
 
   const handleSaveAds = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -61,13 +97,14 @@ export default function AdsControlPage() {
           modal_ads: safeBtoa(modalAds),
           header_ads: safeBtoa(headerAds),
           membership_ref_link: safeBtoa(membershipRefLink),
-          signin_ref_link: safeBtoa(signinRefLink)
+          signin_ref_link: safeBtoa(signinRefLink),
+          global_bg: safeBtoa(globalBg)
         })
       })
       if (res.ok) {
-        setAdsMessage({ text: "Ads configurations saved successfully!", type: "success" })
+        setAdsMessage({ text: "Ads & Global BG configurations saved successfully!", type: "success" })
       } else {
-        setAdsMessage({ text: "Failed to save ads configuration.", type: "error" })
+        setAdsMessage({ text: "Failed to save configurations.", type: "error" })
       }
     } catch (err: any) {
       setAdsMessage({ text: err.message || "Network error.", type: "error" })
@@ -85,8 +122,8 @@ export default function AdsControlPage() {
             <SlidersHorizontal className="w-5 h-5 text-slate-955" />
           </div>
           <div>
-            <h3 className="text-base font-extrabold text-slate-100">Global Ads Configuration</h3>
-            <p className="text-xs text-slate-505 font-medium">Inject advertisement or tracking scripts dynamically into header, hero, or modal spots.</p>
+            <h3 className="text-base font-extrabold text-slate-100">Global Settings & Ads Configuration</h3>
+            <p className="text-xs text-slate-505 font-medium">Configure global website settings and inject advertisement or tracking scripts dynamically.</p>
           </div>
         </div>
       </div>
@@ -109,6 +146,54 @@ export default function AdsControlPage() {
             <span>{adsMessage.text}</span>
           </div>
         )}
+
+        {/* Global Background Image Input */}
+        <div className="space-y-2 pb-6 border-b border-slate-900/60">
+          <label className="text-[10px] uppercase tracking-wider font-bold text-slate-400 flex items-center gap-1.5 font-mono">
+            Global Background Image (URL or Upload)
+          </label>
+          <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+            <div className="flex-1 w-full">
+              <input
+                type="text"
+                value={globalBg}
+                onChange={(e) => setGlobalBg(e.target.value)}
+                placeholder="/uploads/global-bg.jpg or https://example.com/bg.jpg"
+                className="w-full bg-slate-950 border border-slate-900 rounded-xl px-4 py-3 text-xs text-slate-200 placeholder-slate-600 focus:outline-hidden focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/20 font-mono transition-all"
+              />
+            </div>
+            <label className="shrink-0 flex items-center gap-2 px-4 py-3 rounded-xl bg-slate-900/60 hover:bg-slate-900 border border-slate-800 text-xs font-bold text-slate-350 transition-all cursor-pointer">
+              <Upload className="w-4 h-4" />
+              <span>Upload Image</span>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleBgUpload}
+                className="hidden"
+              />
+            </label>
+          </div>
+          {globalBg && (
+            <div className="relative w-full max-w-md h-32 rounded-xl overflow-hidden border border-slate-900 mt-2 bg-slate-950 flex items-center justify-center">
+              <Image
+                src={getImageUrl(globalBg)}
+                alt="Global Background Preview"
+                fill
+                className="object-cover"
+              />
+              <button
+                type="button"
+                onClick={() => setGlobalBg("")}
+                className="absolute top-2 right-2 p-1.5 rounded-lg bg-red-500/80 hover:bg-red-500 text-white transition-all shadow-md cursor-pointer"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          )}
+          <p className="text-[9px] text-slate-550 leading-relaxed">
+            Configure a default global background image. If a match has no specific background uploaded, this global image will be displayed on the match details page. It is also shown as the default website background on the homepage.
+          </p>
+        </div>
 
         {/* Header Ads Input */}
         <div className="space-y-2">
