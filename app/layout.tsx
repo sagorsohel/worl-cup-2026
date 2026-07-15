@@ -63,11 +63,12 @@ async function getAds() {
       modalAds: adsData?.modal_ads || "",
       heroAds: adsData?.hero_ads || "",
       hero2Ads: adsData?.hero2_ads || "",
-      floatingAds: adsData?.floating_ads || ""
+      floatingAds: adsData?.floating_ads || "",
+      floatingAdsStatus: adsData?.floating_ads_status || "on"
     }
   } catch (err) {
     console.error("Failed to fetch ads from DB directly:", err)
-    return { headerAds: "", modalAds: "", heroAds: "", hero2Ads: "", floatingAds: "" }
+    return { headerAds: "", modalAds: "", heroAds: "", hero2Ads: "", floatingAds: "", floatingAdsStatus: "on" }
   }
 }
 
@@ -104,8 +105,8 @@ export default async function RootLayout({
   const pathname = headersList.get("x-url") || ""
   const isManage = pathname.startsWith("/manage")
 
-  const { headerAds, modalAds, heroAds, hero2Ads, floatingAds } = isManage 
-    ? { headerAds: "", modalAds: "", heroAds: "", hero2Ads: "", floatingAds: "" } 
+  const { headerAds, modalAds, heroAds, hero2Ads, floatingAds, floatingAdsStatus } = isManage 
+    ? { headerAds: "", modalAds: "", heroAds: "", hero2Ads: "", floatingAds: "", floatingAdsStatus: "on" } 
     : await getAds()
 
   const headerScripts = parseScriptTags(headerAds)
@@ -152,7 +153,9 @@ export default async function RootLayout({
               )}
               {children}
             </LayoutWrapper>
-            <FloatingMobileAd floatingAds={floatingAds} heroAds={heroAds} hero2Ads={hero2Ads} />
+            {floatingAdsStatus !== "off" && (
+              <FloatingMobileAd floatingAds={floatingAds} heroAds={heroAds} hero2Ads={hero2Ads} />
+            )}
           </ThemeProvider>
         </Providers>
         {bodyEndNonScriptHtml && (

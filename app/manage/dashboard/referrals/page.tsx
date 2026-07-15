@@ -16,6 +16,7 @@ export default function ReferralLinksPage() {
   const [headerAds, setHeaderAds] = useState("")
   const [globalBg, setGlobalBg] = useState("")
   const [floatingAds, setFloatingAds] = useState("")
+  const [floatingAdsStatus, setFloatingAdsStatus] = useState("on")
 
   const [referralsSaving, setReferralsSaving] = useState(false)
   const [referralsMessage, setReferralsMessage] = useState({ text: "", type: "success" })
@@ -34,6 +35,7 @@ export default function ReferralLinksPage() {
           setHeaderAds(data.ads.header_ads || "")
           setGlobalBg(data.ads.global_bg || "")
           setFloatingAds(data.ads.floating_ads || "")
+          setFloatingAdsStatus(data.ads.floating_ads_status || "on")
         }
       })
       .catch(() => { })
@@ -67,7 +69,8 @@ export default function ReferralLinksPage() {
           membership_ref_link: safeBtoa(membershipRefLink),
           signin_ref_link: safeBtoa(signinRefLink),
           global_bg: safeBtoa(globalBg),
-          floating_ads: safeBtoa(floatingAds)
+          floating_ads: safeBtoa(floatingAds),
+          floating_ads_status: safeBtoa(floatingAdsStatus)
         })
       })
       if (res.ok) {
